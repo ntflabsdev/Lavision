@@ -1,0 +1,12 @@
+import NoteImg from "../assets/note.png";
+import MirrorImg from "../assets/mirror.png";
+import FutureImg from "../assets/future.png";
+import Curve1 from "../assets/curve1.png";
+import Curve2 from "../assets/curve2.png";
+import Curve3 from "../assets/curve3.png";
+import Misson from "../assets/mission.png";
+import Logo from "../assets/logo.png";
+import Map from "../assets/map.png";
+import DollarSign from "../assets/dollar.png";
+import Brain from "../assets/brain.png";
+export { NoteImg, MirrorImg, FutureImg, Curve1, Curve2, Curve3, Misson, Logo, Map, DollarSign, Brain };

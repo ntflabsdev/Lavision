@@ -5,6 +5,7 @@ import Layout from './layouts/Layout';
 import { HomeScreen, QuestionnaireScreen, ResultsScreen, VisionRealizedScreen } from './screens';
 import Aboutus from './screens/Aboutus';
 import PricingPage from './screens/PricingPage';
+import ContactPage from './screens/ContactPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/vision-realized" element={<VisionRealizedScreen />} />
             <Route path="/aboutus" element={<Aboutus />} />
             <Route path='/pricing' element={<PricingPage />} />
+            <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </Layout>
       </Router>

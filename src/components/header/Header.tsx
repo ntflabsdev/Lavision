@@ -39,7 +39,7 @@ const Header = () => {
           <img
             src={Logo}
             alt="Logo"
-            className="h-20 cursor-pointer"
+            className="md:h-8 h-10 lg:h-[70px] cursor-pointer"
             onClick={() => {
               setSelected('Home');
               navigate('/');
@@ -54,6 +54,7 @@ const Header = () => {
               if (link.label === 'Home' && location.pathname === '/') isActive = true;
               if (link.label === 'About Us' && location.pathname === '/aboutus') isActive = true;
               if (link.label === 'Pricing' && location.pathname === '/pricing') isActive = true;
+              if (link.label === 'Contact Us' && location.pathname === '/contact') isActive = true;
               return (
                 <button
                   key={link.label}
@@ -62,6 +63,7 @@ const Header = () => {
                     if (link.label === 'Home') navigate('/');
                     if (link.label === 'About Us') navigate('/aboutus');
                     if (link.label === 'Pricing') navigate('/pricing');
+                    if (link.label === 'Contact Us') navigate('/contact');
                   }}
                   className={`relative px-1 focus:outline-none 
                     ${link.special === 'getstarted' ? 'bg-gradient-to-r from-[#7F66FF] to-[#CC66FF] text-white px-6 py-2 rounded-full transition-all duration-200 transform hover:scale-105 ml-2' : ''}
@@ -110,6 +112,7 @@ const Header = () => {
                       if (link.label === 'Home') navigate('/');
                       if (link.label === 'About Us') navigate('/aboutus');
                       if (link.label === 'Pricing') navigate('/pricing');
+                      if (link.label === 'Contact Us') navigate('/contact');
                     }}
                     className={`text-left px-2 py-2 rounded 
                       ${link.special === 'getstarted' ? 'bg-gradient-to-r from-[#7F66FF] to-[#CC66FF] text-white' : ''}

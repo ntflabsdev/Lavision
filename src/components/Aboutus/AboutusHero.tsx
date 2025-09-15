@@ -2,7 +2,7 @@
 const AboutusHero = () => {
   return (
     <section
-      className="min-h-[70vh] flex items-center justify-center px-6 "
+      className="min-h-[60vh] md:min-h-[90vh] flex items-center justify-center px-6 "
       style={{
         background: `linear-gradient(90deg, #05051F 16.76%, #9F5EB0 140.63%), linear-gradient(122.01deg, #0A0B10 0%, #1A1339 50%, #402659 100%)`
       }}

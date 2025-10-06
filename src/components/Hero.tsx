@@ -40,10 +40,10 @@ const Hero = () => {
         <div className="max-w-7xl mx-auto hidden lg:grid grid-cols-3 gap-10 xl:gap-14 items-start">
           <div className="space-y-8">
             <div className="w-full  overflow-hidden ">
-              <img src={dreamhomeImg} alt="Dream Home" className="w-full h-full object-cover" />
+              <img src={dreamhomeImg} alt="Dream Home" className="w-full h-full object-cover hidden lg:block" />
             </div>
               <div className="w-full ">
-                <img src={dreamCarImg} alt="Dream Car" className="w-full h-full object-cover" />
+                <img src={dreamCarImg} alt="Dream Car" className="w-full h-full object-cover hidden lg:block" />
               </div>
           </div>
 
@@ -78,31 +78,17 @@ const Hero = () => {
           <div className="space-y-8">
             <div className="overflow-hidden">
               <div className="w-full overflow-hidden shadow-lg">
-                <img src={careerGoalsImg} alt="Career Goals" className="w-full h-full object-cover" />
+                <img src={careerGoalsImg} alt="Career Goals" className="w-full h-full object-cover hidden lg:block" />
               </div>
             </div>
             <div className=" overflow-hidden flex items-center justify-center relative h-72" >
-              <img src={Glass} alt="AI Visualization" className="w-full h-full object-cover rounded-xl opacity-90" />
+              <img src={Glass} alt="AI Visualization" className="w-full h-full object-cover rounded-xl opacity-90 hidden lg:block" />
             </div>
           </div>
         </div>
 
         <div className="lg:hidden space-y-6 max-w-4xl mx-auto relative">
-          <div className="backdrop-blur-xl  p-6 shadow-2xl overflow-hidden" style={{ backgroundImage: `url(${curve3})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
-            <h3 className="text-white text-xl font-semibold mb-4">Dream Home</h3>
-            <div className="w-full rounded-xl overflow-hidden shadow-lg">
-              <img src={dreamhomeImg} alt="Dream Home" className="w-full h-full object-cover" />
-            </div>
-          </div>
-
-          {/* Career Goals Card (Mobile) */}
-          <div className="overflow-hidden">
-            <div className="w-full rounded-xl overflow-hidden shadow-lg">
-              <img src={careerGoalsImg} alt="Career Goals" className="w-full h-full object-cover" />
-            </div>
-          </div>
-
-          {/* Center Build Your Dream Life Card */}
+          {/* Center Build Your Dream Life Card ONLY (Mobile) */}
           <div className="bg-gradient-to-br from-purple-700/60 to-blue-700/60 backdrop-blur-xl rounded-3xl border border-purple-400/40 p-8 shadow-2xl text-center">
             <h2 className="text-2xl font-bold text-white mb-2">
               Build Your <span className="bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">Dream</span>
@@ -121,27 +107,6 @@ const Hero = () => {
             >
               Start Creating Your Dream Life
             </button>
-          </div>
-
-          {/* Dream Car Card (Mobile) */}
-          <div className="backdrop-blur-xl rounded-2xl p-6 shadow-2xl overflow-hidden">
-            <div className="w-full ">
-              <img src={dreamCarImg} alt="Dream Car" className="w-full h-full object-cover" />
-            </div>
-          </div>
-
-          {/* AI Visualization Card */}
-          <div className=" p-4 shadow-2xl">
-            <div className="w-full h-48 flex items-center justify-center overflow-hidden relative">
-              <img
-                src="/glass.png"
-                alt="AI Visualization"
-                className="w-full h-full object-cover rounded-xl animate-[float_4s_ease-in-out_infinite]"
-              />
-              <div className="absolute top-4 left-4 text-white text-sm font-medium opacity-80">
-                AI Visualization
-              </div>
-            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { Facebook, Twitter, Instagram, Github } from 'lucide-react';
-import { Logo } from '../utls/imagepath';
 import { useNavigate } from 'react-router-dom';
+import { Logo } from '../../utls/imagepath';
 
 const Footer = () => {
   const navigate = useNavigate();

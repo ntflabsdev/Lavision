@@ -17,8 +17,8 @@ const plans = [
       'A simple preview of what\'s possible'
     ],
     buttonText: 'Start Exploring',
-    buttonStyle: 'bg-purple-600 hover:bg-purple-700',
-    cardStyle: 'border border-[#59595933] shadow-lg min-h-[400px] sm:min-h-[480px]'
+    planType: 'free' as const,
+    planId: 'free-plan',
   },
   {
     name: 'Legend (VIP Plan)',
@@ -31,11 +31,11 @@ const plans = [
       'AI Dream Coach (daily sessions)',
       'Dream life video generation',
       'Access to private Visionaries Community',
-      'Maximum personalization + accountability'
     ],
     buttonText: 'Become a Legend',
-    buttonStyle: 'bg-purple-600 hover:bg-purple-700',
-    cardStyle: 'border border-[#59595933] shadow-xl min-h-[520px] sm:min-h-[660px]'
+    planType: 'paid' as const,
+    priceValue: '34.99',
+    planId: 'legend-plan',
   },
   {
     name: 'Visionary (Core Plan)',
@@ -50,18 +50,20 @@ const plans = [
       'Great entry point for serious users'
     ],
     buttonText: 'Start My Vision',
-    buttonStyle: 'bg-purple-600 hover:bg-purple-700',
-    cardStyle: 'border border-[#59595933] shadow-2xl min-h-[400px] sm:min-h-[480px]'
+    planType: 'paid' as const,
+    priceValue: '14.99',
+    planId: 'visionary-plan',
   }
 ];
 
 const PricingHero = () => {
-  const [selectedIndex, setSelectedIndex] = useState<number>(1);
+  const [selectedIndex, setSelectedIndex] = useState<number>();
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [sliderRef] = useKeenSlider({
     loop: false,
     mode: "snap",
-    slides: { 
-      perView: 1.2, 
+    slides: {
+      perView: 1.2,
       spacing: 16,
       origin: "center"
     },
@@ -95,29 +97,28 @@ const PricingHero = () => {
           </p>
         </div>
       </div>
-      
+
       <section className="py-12 sm:py-16 md:py-20 w-full">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+
           <div className="md:hidden">
             <div ref={sliderRef} className="keen-slider pb-4">
               {plans.map((plan, index) => (
                 <div
                   key={index}
-                  className="keen-slider__slide px-2"
+                  className="keen-slider__slide flex justify-center"
                   onClick={() => setSelectedIndex(index)}
                   style={{ cursor: 'pointer' }}
                 >
-                  <div className="w-full max-w-sm mx-auto">
-                    <PricingCard
-                      name={plan.name}
-                      price={plan.price}
-                      icon={plan.icon}
-                      features={plan.features}
-                      buttonText={plan.buttonText}
-                      cardStyle={plan.cardStyle + ' w-full'}
-                      isSelected={selectedIndex === index}
-                    />
-                  </div>
+                  <PricingCard
+                    name={plan.name}
+                    price={plan.price}
+                    icon={plan.icon}
+                    features={plan.features}
+                    buttonText={plan.buttonText} 
+                    planType={plan.planType}
+                    priceValue={plan.priceValue}
+                    planId={plan.planId} />
                 </div>
               ))}
             </div>
@@ -125,26 +126,29 @@ const PricingHero = () => {
               {plans.map((_, index) => (
                 <button
                   key={index}
-                  className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                    selectedIndex === index ? 'bg-purple-400 scale-110' : 'bg-gray-600'
-                  }`}
+                  className={`w-3 h-3 rounded-full transition-all duration-200 ${selectedIndex === index ? 'bg-purple-400 scale-110' : 'bg-gray-600'
+                    }`}
                   onClick={() => setSelectedIndex(index)}
                 />
               ))}
             </div>
           </div>
-          
-          <div className="hidden md:flex md:items-end md:justify-center md:gap-8 lg:gap-12">
+
+          <div className="hidden md:flex md:items-center md:justify-center md:gap-6 lg:gap-8 relative">
             {plans.map((plan, index) => (
               <div
                 key={index}
                 onClick={() => setSelectedIndex(index)}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
                 style={{ cursor: 'pointer' }}
-                className={`transition-all duration-300 ${
-                  index === 1 
-                    ? 'md:scale-105 lg:scale-110 md:z-10 md:-translate-y-4 lg:-translate-y-8' 
-                    : 'md:translate-y-4 lg:translate-y-8 md:scale-95 lg:scale-100'
-                }`}
+                className={`transition-all duration-300 ease-in-out relative ${index === 1
+                    ? 'md:-translate-y-8 lg:-translate-y-12 md:z-10'
+                    : 'md:translate-y-4 lg:translate-y-6'
+                  } ${selectedIndex === index || hoveredIndex === index
+                    ? 'transform scale-105 z-20'
+                    : ''
+                  }`}
               >
                 <PricingCard
                   name={plan.name}
@@ -152,12 +156,9 @@ const PricingHero = () => {
                   icon={plan.icon}
                   features={plan.features}
                   buttonText={plan.buttonText}
-                  cardStyle={`${plan.cardStyle} ${
-                    index === 1 
-                      ? 'border-2 border-purple-400 shadow-2xl shadow-purple-500/20' 
-                      : ''
-                  }`}
-                  isSelected={selectedIndex === index}
+                  planType={plan.planType}
+                  priceValue={plan.priceValue}
+                  planId={plan.planId}
                 />
               </div>
             ))}

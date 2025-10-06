@@ -9,4 +9,7 @@ import Logo from "../assets/logo.png";
 import Map from "../assets/map.png";
 import DollarSign from "../assets/dollar.png";
 import Brain from "../assets/brain.png";
-export { NoteImg, MirrorImg, FutureImg, Curve1, Curve2, Curve3, Misson, Logo, Map, DollarSign, Brain };
+import Glass from "../assets/glass.png";
+import DreamHome from "../assets/dreamhome.png";
+import DreamCareer from "../assets/careergoals.png";     
+export { NoteImg, MirrorImg, FutureImg, Curve1, Curve2, Curve3, Misson, Logo, Map, DollarSign, Brain, Glass, DreamHome , DreamCareer };

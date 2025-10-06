@@ -1,13 +1,24 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../store/hooks';
+import { useAppSelector, useGetDashboardQuery } from '../store/hooks';
+
 
 const DreamWorldResults = () => {
   const navigate = useNavigate();
   const { answers } = useAppSelector((state) => state.questionnaire);
+  const { data: dashboardData } = useGetDashboardQuery();
   const [isGenerating, setIsGenerating] = useState(false);
 
+  // Check for active subscription
+  const isSubscribed = dashboardData?.data?.subscriptions?.some(
+    (sub) => sub.status === 'active'
+  );
+
   const handleGenerateDreamWorld = () => {
+    if (!isSubscribed) {
+      navigate('/subscribe'); // Redirect to subscription page if not subscribed
+      return;
+    }
     setIsGenerating(true);
     setTimeout(() => {
       setIsGenerating(false);

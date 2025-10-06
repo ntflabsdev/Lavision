@@ -1,23 +1,38 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, User, LogOut } from 'lucide-react';
 import { Logo } from '../../utls/imagepath';
 import DropdownThreeBG from './DropdownThreeBG';
+// import { useAuth } from '../../contexts/AuthContext';
+import { useGetUserQuery, useLogoutMutation } from '../../store/hooks';
+import AuthModal from '../auth/AuthModal';
 
 const navLinks = [
   { label: 'Home', href: '#' },
   { label: 'About Us', href: '#' },
   { label: 'Pricing', href: '#' },
   { label: 'Contact Us', href: '#' },
-  { label: 'Get Started', href: '#', special: 'getstarted' },
 ];
 
 const Header = () => {
   const [selected, setSelected] = useState('Home');
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  
+  // Check if user has a token
+  const token = localStorage.getItem('token');
+  
+  // RTK Query hooks for authentication - only call if token exists
+  const { data: userData } = useGetUserQuery(undefined, {
+    skip: !token, // Skip query if no token is available
+  });
+  const [logoutMutation] = useLogoutMutation();
+  const user = userData?.data?.user;
+  const isAuthenticated = !!user && !!token;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,10 +61,8 @@ const Header = () => {
             }}
           />
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-4 ">
+          <div className="hidden md:flex items-center space-x-4">
             {navLinks.map((link) => {
-              // Route-based highlighting
               let isActive = false;
               if (link.label === 'Home' && location.pathname === '/') isActive = true;
               if (link.label === 'About Us' && location.pathname === '/aboutus') isActive = true;
@@ -65,22 +78,65 @@ const Header = () => {
                     if (link.label === 'Pricing') navigate('/pricing');
                     if (link.label === 'Contact Us') navigate('/contact');
                   }}
-                  className={`relative px-1 focus:outline-none 
-                    ${link.special === 'getstarted' ? 'bg-gradient-to-r from-[#7F66FF] to-[#CC66FF] text-white px-6 py-2 rounded-full transition-all duration-200 transform hover:scale-105 ml-2' : ''}
-                    ${(isActive && !link.special) ? 'text-white' : (!link.special ? 'text-gray-300 hover:text-white transition-colors duration-200' : '')}
-                  `}
-                  style={{ background: !link.special ? 'none' : undefined, border: 'none' }}
+                  className={`relative px-1 focus:outline-none ${
+                    isActive ? 'text-white' : 'text-gray-300 hover:text-white transition-colors duration-200'
+                  }`}
                 >
                   <span className="inline-block pb-1">{link.label}</span>
-                  {!link.special && isActive && (
+                  {isActive && (
                     <span className="absolute left-0 right-0 bottom-0 h-1 bg-[#CC66FF] rounded-full w-full"></span>
                   )}
                 </button>
               );
             })}
+
+            {/* Authentication Section */}
+            {isAuthenticated ? (
+              <div className="relative">
+                <button
+                  onClick={() => setShowProfileDropdown(!showProfileDropdown)}
+                  className="flex items-center space-x-2 bg-gradient-to-r from-[#7F66FF] to-[#CC66FF] text-white px-4 py-2 rounded-full transition-all duration-200 transform hover:scale-105"
+                >
+                  <User size={20} />
+                  <span>{user?.firstName || 'Profile'}</span>
+                </button>
+
+                {showProfileDropdown && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-10">
+                    <button
+                      onClick={() => {
+                        navigate('/dashboard');
+                        setShowProfileDropdown(false);
+                      }}
+                      className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                    >
+                      Dashboard
+                    </button>
+                    <button
+                      onClick={async () => {
+                        await logoutMutation().unwrap();
+                        localStorage.removeItem('token');
+                        setShowProfileDropdown(false);
+                        window.location.reload();
+                      }}
+                      className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors flex items-center"
+                    >
+                      <LogOut size={16} className="mr-2" />
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowAuthModal(true)}
+                className="bg-gradient-to-r from-[#7F66FF] to-[#CC66FF] text-white px-6 py-2 rounded-full transition-all duration-200 transform hover:scale-105"
+              >
+                Get Started
+              </button>
+            )}
           </div>
 
-          {/* Hamburger Button */}
           <button
             className="md:hidden text-white"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -90,7 +146,6 @@ const Header = () => {
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </nav>
-        {/* Mobile Menu */}
         {menuOpen && (
           <div
             className="md:hidden mt-4 bg-[#1A1339] rounded-xl shadow-lg p-6 flex flex-col space-y-4 relative overflow-hidden animate-waterfall"
@@ -103,6 +158,7 @@ const Header = () => {
                 if (link.label === 'Home' && location.pathname === '/') isActive = true;
                 if (link.label === 'About Us' && location.pathname === '/aboutus') isActive = true;
                 if (link.label === 'Pricing' && location.pathname === '/pricing') isActive = true;
+                if (link.label === 'Contact Us' && location.pathname === '/contact') isActive = true;
                 return (
                   <button
                     key={link.label}
@@ -114,18 +170,61 @@ const Header = () => {
                       if (link.label === 'Pricing') navigate('/pricing');
                       if (link.label === 'Contact Us') navigate('/contact');
                     }}
-                    className={`text-left px-2 py-2 rounded 
-                      ${link.special === 'getstarted' ? 'bg-gradient-to-r from-[#7F66FF] to-[#CC66FF] text-white' : ''}
-                      ${(isActive && !link.special) ? 'text-white bg-[#CC66FF]' : (!link.special ? 'text-gray-300 hover:text-white hover:bg-[#CC66FF]/30' : '')}
-                    `}
+                    className={`text-left px-2 py-2 rounded ${
+                      isActive ? 'text-white bg-[#CC66FF]' : 'text-gray-300 hover:text-white hover:bg-[#CC66FF]/30'
+                    }`}
                   >
                     {link.label}
                   </button>
                 );
               })}
+
+              {/* Mobile Authentication */}
+              {isAuthenticated ? (
+                <>
+                  <button
+                    onClick={() => {
+                      navigate('/dashboard');
+                      setMenuOpen(false);
+                    }}
+                    className="text-left px-2 py-2 rounded text-gray-300 hover:text-white hover:bg-[#CC66FF]/30"
+                  >
+                    Dashboard
+                  </button>
+                  <button
+                    onClick={async () => {
+                      await logoutMutation().unwrap();
+                      localStorage.removeItem('token');
+                      setMenuOpen(false);
+                      window.location.reload();
+                    }}
+                    className="text-left px-2 py-2 rounded text-gray-300 hover:text-white hover:bg-[#CC66FF]/30 flex items-center"
+                  >
+                    <LogOut size={16} className="mr-2" />
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => {
+                    setShowAuthModal(true);
+                    setMenuOpen(false);
+                  }}
+                  className="bg-gradient-to-r from-[#7F66FF] to-[#CC66FF] text-white px-2 py-2 rounded"
+                >
+                  Get Started
+                </button>
+              )}
             </div>
           </div>
         )}
+
+        {/* Authentication Modal */}
+        <AuthModal
+          isOpen={showAuthModal}
+          onClose={() => setShowAuthModal(false)}
+          initialMode="login"
+        />
       </div>
     </header>
   );

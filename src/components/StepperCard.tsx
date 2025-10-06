@@ -1,14 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Home } from 'lucide-react';
+import { Home, Wand2 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { updateAnswer, setCurrentStep } from '../store/questionnaireSlice';
+import { updateAnswer, setCurrentStep, syncWithApiResponse } from '../store/questionnaireSlice';
+import { useGetUserQuery } from '../store/hooks';
+import {
+  useSaveQuestionnaireMutation,
+  useGetQuestionnaireQuery
+} from '../store/api';
+import RephraseTooltip from './gemini/RephraseTooltip';
 
 const questionGroups = [
   {
     title: 'Identity & Vision',
     questions: [
-      { label: 'What’s your name, and how would you like the world to know you?', key: 'name', placeholder: 'Write your answer here...' },
+      { label: 'What is your name and who are you when you have achieved everything in life?', key: 'name', placeholder: 'Write your answer here...' },
       { label: 'If you could describe your dream life in one sentence, what would it be?', key: 'dream_sentence', placeholder: 'Write your answer here...' },
       { label: 'Which core values guide you most? (e.g., freedom, love, power, creativity)', key: 'core_values', placeholder: 'Write your answer here...' },
     ],
@@ -19,6 +25,7 @@ const questionGroups = [
       { label: 'Where do you live in your dream life? (city, beach, mountains, private island, penthouse, villa)', key: 'dream_location', placeholder: 'Write your answer here...' },
       { label: 'How does your dream home look inside and outside?', key: 'home_look', placeholder: 'Write your answer here...' },
       { label: 'What small details in your home make you feel “this is truly mine”?', key: 'home_details', placeholder: 'Write your answer here...' },
+      { label: `What feelings does the house give off? Luxury, futuristic, vintage, warmth, minimalism?`, key: 'home_feelings', placeholder: 'Write your answer here...' },
     ],
   },
   {
@@ -102,6 +109,38 @@ const StepperCard = () => {
   const dispatch = useAppDispatch();
   const { answers, currentStep } = useAppSelector((state) => state.questionnaire);
   const [step, setStep] = useState(currentStep);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
+  const [activeQuestionKey, setActiveQuestionKey] = useState<string>('');
+  const textareaRefs = useRef<{ [key: string]: HTMLTextAreaElement | null }>({});
+
+  // API hooks - get user ID from authentication
+  const token = localStorage.getItem('token');
+  const { data: userData } = useGetUserQuery(undefined, {
+    skip: !token,
+  });
+  const currentUserId = userData?.data?.user?._id;
+  
+  const [saveQuestionnaire, { isLoading: isSaving }] = useSaveQuestionnaireMutation();
+
+  // Load existing questionnaire data
+  const { data: questionnaireData } = useGetQuestionnaireQuery(
+    currentUserId || '',
+    { skip: !currentUserId }
+  );
+
+  // Sync local state with API data when loaded
+  useEffect(() => {
+    if (questionnaireData?.success) {
+      dispatch(syncWithApiResponse({
+        answers: questionnaireData.data.answers,
+        currentStep: questionnaireData.data.currentStep,
+        sessionId: questionnaireData.data.userId, // Use userId as sessionId for compatibility
+        isCompleted: questionnaireData.data.isCompleted
+      }));
+      setStep(questionnaireData.data.currentStep);
+    }
+  }, [questionnaireData, dispatch]);
 
   const isFirst = step === 0;
   const isLast = step === questionGroups.length - 1;
@@ -111,28 +150,75 @@ const StepperCard = () => {
 
   const handleChange = (key: string, value: string) => {
     dispatch(updateAnswer({ key, value }));
+    // Only update local state, no API call
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    // Close tooltip if open
+    setTooltipVisible(false);
+
     if (!isGroupValid) return;
+
     if (!isLast) {
       const nextStep = step + 1;
       setStep(nextStep);
       dispatch(setCurrentStep(nextStep));
+      // No API call here, just update local state
     } else {
-      // Last step completed, navigate to results
+      // Last step completed, save all answers and complete questionnaire
+      if (currentUserId) {
+        try {
+          // First save all the questionnaire data
+          await saveQuestionnaire({
+            answers,
+            currentStep: step,
+            isCompleted: false
+          }).unwrap();
+          
+        } catch (error) {
+          console.error('Failed to save and complete questionnaire:', error);
+          return; // Don't navigate if save failed
+        }
+      }
       navigate('/results');
     }
   };
 
   const handleBack = () => {
+    // Close tooltip if open
+    setTooltipVisible(false);
+
     if (!isFirst) {
       const prevStep = step - 1;
       setStep(prevStep);
       dispatch(setCurrentStep(prevStep));
+      // No API call here, just update local state
     } else {
       navigate('/');
     }
+  };
+
+  const handleRephraseClick = (key: string, event: React.MouseEvent) => {
+    event.preventDefault();
+    const textarea = textareaRefs.current[key];
+    if (!textarea) return;
+
+    const rect = textarea.getBoundingClientRect();
+    setTooltipPosition({
+      top: rect.bottom + window.scrollY + 10,
+      left: rect.left + window.scrollX
+    });
+    setActiveQuestionKey(key);
+    setTooltipVisible(true);
+  };
+
+  const handleRephraseApply = (key: string, newText: string) => {
+    handleChange(key, newText);
+  };
+
+  const handleCloseTooltip = () => {
+    setTooltipVisible(false);
+    setActiveQuestionKey('');
   };
 
   return (
@@ -150,14 +236,28 @@ const StepperCard = () => {
         {group.questions.map(q => (
           <div key={q.key} className="flex flex-col gap-2">
             <label htmlFor={q.key} className="text-left text-white text-2xl font-normal mb-1">{q.label}</label>
-            <textarea
-              id={q.key}
-              className="w-full rounded-lg bg-[#18122B] border border-[#3C2960] text-white text-base px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#A66CFF] placeholder-gray-400 transition-all duration-200 resize-y"
-              placeholder={q.placeholder || 'Write your answer here...'}
-              value={answers[q.key] || ''}
-              rows={2}
-              onChange={e => handleChange(q.key, e.target.value)}
-            />
+            <div className="relative">
+              <textarea
+                ref={(el) => (textareaRefs.current[q.key] = el)}
+                id={q.key}
+                className="w-full rounded-lg bg-[#18122B] border border-[#3C2960] text-white text-base px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#A66CFF] placeholder-gray-400 transition-all duration-200 resize-y"
+                placeholder={q.placeholder || 'Write your answer here...'}
+                value={answers[q.key] || ''}
+                rows={2}
+                onChange={e => handleChange(q.key, e.target.value)}
+              />
+              {/* Rephrase button - show only when there's text */}
+              {answers[q.key] && answers[q.key].trim() && (
+                <button
+                  type="button"
+                  onClick={(e) => handleRephraseClick(q.key, e)}
+                  className="absolute top-3 right-3 p-2 text-[#8866FF] hover:text-[#A66CFF] hover:bg-[#2B2042] rounded-md transition-all duration-200 group"
+                  title="AI Rephrase & Suggestions"
+                >
+                  <Wand2 size={16} className="group-hover:scale-110 transition-transform" />
+                </button>
+              )}
+            </div>
           </div>
         ))}
       </form>
@@ -171,13 +271,35 @@ const StepperCard = () => {
           Back
         </button>
         <button
-          className="bg-gradient-to-r from-[#00AAFF] to-[#CC66FF] text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:from-[#3C2960] hover:to-[#A66CFF]"
+          className="bg-gradient-to-r from-[#00AAFF] to-[#CC66FF] text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:from-[#3C2960] hover:to-[#A66CFF] disabled:opacity-50"
           onClick={handleNext}
-          disabled={!isGroupValid}
+          disabled={!isGroupValid || isSaving }
         >
-          {isLast ? 'Finish' : 'Next'}
+          {isSaving ? (
+            <>
+              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Saving...
+            </>
+          ) : isLast ? (
+            'Complete & See Results'
+          ) : (
+            'Next'
+          )}
         </button>
       </div>
+
+      {/* Rephrase Tooltip */}
+      <RephraseTooltip
+        originalText={answers[activeQuestionKey] || ''}
+        onRephrase={(newText) => handleRephraseApply(activeQuestionKey, newText)}
+        questionLabel={group.questions.find(q => q.key === activeQuestionKey)?.label || ''}
+        isVisible={tooltipVisible}
+        onClose={handleCloseTooltip}
+        position={tooltipPosition}
+      />
     </div>
   );
 };

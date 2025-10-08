@@ -1,6 +1,16 @@
+import { useNavigate } from 'react-router-dom';
 import { FutureImg } from '../utls/imagepath';
 
 const TransformFuture = () => {
+  const navigate = useNavigate();
+
+  const handleBuildDreamLife = () => {
+    navigate('/questionnaire');
+  };
+
+  const handleJoinEarlyAccess = () => {
+    navigate('/pricing');
+  };
   return (
     <section className="py-20 px-6 bg-[#FEF4FF]">
       <div className="max-w-7xl mx-auto">
@@ -20,10 +30,16 @@ const TransformFuture = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-200 transform hover:scale-105">
+              <button 
+                onClick={handleBuildDreamLife}
+                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-200 transform hover:scale-105"
+              >
                 Build Your Dream Life Today
               </button>
-              <button className="bg-transparent hover:bg-purple-50 text-purple-600 px-8 py-4 rounded-full font-semibold transition-all duration-200 border-2 border-purple-300 hover:border-purple-400">
+              <button 
+                onClick={handleJoinEarlyAccess}
+                className="bg-transparent hover:bg-purple-50 text-purple-600 px-8 py-4 rounded-full font-semibold transition-all duration-200 border-2 border-purple-300 hover:border-purple-400"
+              >
                 Join Early Access
               </button>
             </div>

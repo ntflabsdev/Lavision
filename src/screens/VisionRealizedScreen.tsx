@@ -60,12 +60,18 @@ const VisionRealizedScreen = () => {
     "My confidence grows with each step I take.",
   ]);
   const [isGeneratingAffirmations, setIsGeneratingAffirmations] = useState(false);
+
+  const handleEnter3DMode = () => {
+    // For now, navigate to a demo or show a modal that 3D mode is coming soon
+    alert('3D Mode coming soon! This would open an immersive 3D experience of your dream world.');
+    // In the future, this would navigate to a 3D viewer or trigger a WebGL/Three.js component
+  };
   const [userName, setUserName] = useState("YONATAN");
 
   // Get questionnaire data from Redux store
   const questionnaireState = useAppSelector((state) => state.questionnaire);
   
-  // Get user ID from authentication
+  // Get user ID from authentication  
   const token = localStorage.getItem('token');
   const { data: userData } = useGetUserQuery(undefined, {
     skip: !token,
@@ -124,7 +130,12 @@ const VisionRealizedScreen = () => {
         <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed mb-6">
           Step into your dream world, a space thoughtfully crafted from your unique vision. Designed with a serene countryside ambiance, it offers the perfect balance of tranquility and inspiration. Every detail is tailored to create a personal connection, transforming your environment into a meaningful reflection of who you are and the future you aspire to build.
         </p>
-        <button className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition">Enter 3D Mode</button>
+        <button 
+          onClick={handleEnter3DMode}
+          className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition"
+        >
+          Enter 3D Mode
+        </button>
       </section>
 
       <section className="flex flex-col items-center justify-center py-12 px-4 flex-1">

@@ -1,6 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import { MirrorImg } from '../utls/imagepath';
 
 const MirrorEffect = () => {
+  const navigate = useNavigate();
+
+  const handleExperienceMirror = () => {
+    navigate('/questionnaire');
+  };
   return (
     <section className="py-20 px-6 bg-[#FEF4FF]">
       <div className="max-w-7xl mx-auto">
@@ -35,7 +41,10 @@ const MirrorEffect = () => {
               </div>
             </div>
             
-            <button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-[#E9E9E9] px-8 py-4 rounded-full font-semibold transition-all duration-200 transform hover:scale-105">
+            <button 
+              onClick={handleExperienceMirror}
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-[#E9E9E9] px-8 py-4 rounded-full font-semibold transition-all duration-200 transform hover:scale-105"
+            >
               Experience The Mirror
             </button>
           </div>

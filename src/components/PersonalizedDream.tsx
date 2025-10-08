@@ -1,15 +1,18 @@
 import { Sparkles, CheckCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { NoteImg } from '../utls/imagepath';
+
 const PersonalizedDream = () => {
+  const navigate = useNavigate();
   return (
     <section className="py-20 px-6  bg-[#FEF4FF]">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Your Personalized Dream{' '}
+              Your Personalized{' '}
               <span className="bg-[#CC66FF] bg-clip-text text-transparent">
-                Manifesto
+                manifest
               </span>
             </h2>
             
@@ -22,7 +25,7 @@ const PersonalizedDream = () => {
                 <div className="w-4 h-4 mr-3 flex items-center justify-center">
                   <CheckCircle color="#CB65FE80" />
                 </div>
-                Unique manifesto aligned with your dream character
+                Unique manifest aligned with your dream character
               </li>
               <li className="flex items-center text-gray-600">
                 <div className="w-4 h-4 mr-3 flex items-center justify-center">
@@ -38,8 +41,11 @@ const PersonalizedDream = () => {
               </li>
             </ul>
             
-            <button className="bg-gradient-to-r from-[#7F66FF] to-[#CC66FF] hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-200 transform hover:scale-105">
-              Create My Manifesto
+            <button 
+              onClick={() => navigate('/questionnaire')}
+              className="bg-gradient-to-r from-[#7F66FF] to-[#CC66FF] hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-200 transform hover:scale-105"
+            >
+              Create My manifest
             </button>
           </div>
           

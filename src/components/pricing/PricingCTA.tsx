@@ -1,6 +1,11 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const PricingCTA = () => {
+  const navigate = useNavigate();
+
+  const handleStartFree = () => {
+    navigate('/questionnaire');
+  };
   return (
     <section className="py-20 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -13,7 +18,10 @@ const PricingCTA = () => {
             worlds, transforming ambitions into clear visions and living each day inspired by 
             the future they've designed for themselves.
           </p>
-          <button className="bg-[#D072FF] hover:bg-purple-700 text-white px-7 py-3 rounded-full text-lg font-medium transition-colors">
+          <button 
+            onClick={handleStartFree}
+            className="bg-[#D072FF] hover:bg-purple-700 text-white px-7 py-3 rounded-full text-lg font-medium transition-colors"
+          >
             Start Free Today
           </button>
         </div>

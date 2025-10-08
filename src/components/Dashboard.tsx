@@ -1,23 +1,30 @@
-import React, { useState } from 'react';
-import { CreditCard, Calendar, FileText, DollarSign } from 'lucide-react';
+import  { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { CreditCard, FileText, Calendar, DollarSign } from 'lucide-react';
 import { useCancelPaymentSubscriptionMutation, useGetDashboardQuery } from '../store/api';
 
-const Dashboard: React.FC = () => {
+const Dashboard = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'overview' | 'subscriptions' | 'transactions' | 'questionnaires'>('overview');
   const [isCancellingId, setIsCancellingId] = useState<string | null>(null);
+
+  const handleViewQuestionnaireDetails = (questionnaire: any) => {
+    if (questionnaire.isCompleted) {
+      navigate('/vision-realized');
+    } else {
+      navigate('/questionnaire');
+    }
+  };
   const [cancelPaymentSubscription] = useCancelPaymentSubscriptionMutation();
 
-  // Check if user has a token
   const token = localStorage.getItem('token');
-  
-  // Use RTK Query for dashboard data - only call if token exists
-  const { 
+    const { 
     data: dashboardResponse, 
     isLoading, 
     error: queryError,
     refetch 
   } = useGetDashboardQuery(undefined, {
-    skip: !token, // Skip query if no token is available
+    skip: !token,
   });
 
   const dashboardData = dashboardResponse?.data;
@@ -301,7 +308,10 @@ const Dashboard: React.FC = () => {
                             Status: {questionnaire.isCompleted ? 'Completed' : `In Progress (Step ${questionnaire.currentStep || 1})`}
                           </p>
                         </div>
-                        <button className="text-purple-400 hover:text-purple-300 text-sm">
+                        <button 
+                          onClick={() => handleViewQuestionnaireDetails(questionnaire)}
+                          className="text-purple-400 hover:text-purple-300 text-sm"
+                        >
                           View Details
                         </button>
                       </div>

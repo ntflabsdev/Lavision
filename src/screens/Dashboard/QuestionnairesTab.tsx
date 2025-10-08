@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { formatDate } from './utils';
 
 interface Questionnaire {
@@ -16,6 +17,15 @@ interface QuestionnairesTabProps {
 }
 
 const QuestionnairesTab: React.FC<QuestionnairesTabProps> = ({ questionnaires }) => {
+  const navigate = useNavigate();
+
+  const handleViewDetails = (questionnaire: Questionnaire) => {
+    if (questionnaire.isCompleted) {
+      navigate('/vision-realized');
+    } else {
+      navigate('/questionnaire');
+    }
+  };
   return (
     <div>
       <h3 className="text-xl font-semibold text-white mb-4">Your Questionnaires</h3>
@@ -38,7 +48,10 @@ const QuestionnairesTab: React.FC<QuestionnairesTabProps> = ({ questionnaires })
                     Status: {questionnaire.isCompleted ? 'Completed' : `In Progress (Step ${questionnaire.currentStep || 1})`}
                   </p>
                 </div>
-                <button className="text-purple-400 hover:text-purple-300 text-sm">
+                <button 
+                  onClick={() => handleViewDetails(questionnaire)}
+                  className="text-purple-400 hover:text-purple-300 text-sm"
+                >
                   View Details
                 </button>
               </div>

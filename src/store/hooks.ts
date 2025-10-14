@@ -10,6 +10,5 @@ export {
 	useRegisterMutation,
 	useForgotPasswordMutation,
 	useGetUserQuery,
-	useLogoutMutation,
 	useGetDashboardQuery
 } from './api';

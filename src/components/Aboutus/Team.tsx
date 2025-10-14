@@ -1,4 +1,7 @@
 
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 const Team = () => {
   const teamMembers = [
     {
@@ -44,7 +47,8 @@ const Team = () => {
                   <p className="text-purple-200 text-lg">{member.role}</p>
                 </div>
                 <div className="w-full h-80 rounded-2xl overflow-hidden">
-                  <img 
+                  <LazyLoadImage
+                    effect="blur"
                     src={member.image} 
                     alt={member.name}
                     className="w-full h-full object-cover"

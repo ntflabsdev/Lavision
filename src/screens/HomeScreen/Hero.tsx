@@ -1,17 +1,15 @@
 
 
 import { useNavigate } from 'react-router-dom';
-import curve3 from '../assets/curve3.png';
-// import curve1 from '../assets/curve1.png';
-import dreamhomeImg from '../assets/dreamhome.png';
-import careerGoalsImg from '../assets/careergoals.png';
-import dreamCarImg from '../assets/dreamcar.png';
-import { Glass } from '../utls/imagepath';
+import dreamhomeImg from '../../assets/dreamhome.png';
+import careerGoalsImg from '../../assets/careergoals.png';
+import dreamCarImg from '../../assets/dreamcar.png';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import { Glass } from '../../utls/imagepath';
 
 
-// Career goals now represented by static image asset
 
-// Dream Car now represented by static image asset
 const Hero = () => {
   const navigate = useNavigate();
 
@@ -40,10 +38,10 @@ const Hero = () => {
         <div className="max-w-7xl mx-auto hidden lg:grid grid-cols-3 gap-10 xl:gap-14 items-start">
           <div className="space-y-8">
             <div className="w-full  overflow-hidden ">
-              <img src={dreamhomeImg} alt="Dream Home" className="w-full h-full object-cover hidden lg:block" />
+              <LazyLoadImage effect="blur" src={dreamhomeImg} alt="Dream Home" className="w-full h-full object-cover hidden lg:block" />
             </div>
               <div className="w-full ">
-                <img src={dreamCarImg} alt="Dream Car" className="w-full h-full object-cover hidden lg:block" />
+                <LazyLoadImage effect="blur" src={dreamCarImg} alt="Dream Car" className="w-full h-full object-cover hidden lg:block" />
               </div>
           </div>
 
@@ -78,11 +76,11 @@ const Hero = () => {
           <div className="space-y-8">
             <div className="overflow-hidden">
               <div className="w-full overflow-hidden shadow-lg">
-                <img src={careerGoalsImg} alt="Career Goals" className="w-full h-full object-cover hidden lg:block" />
+                <LazyLoadImage effect="blur" src={careerGoalsImg} alt="Career Goals" className="w-full h-full object-cover hidden lg:block" />
               </div>
             </div>
             <div className=" overflow-hidden flex items-center justify-center relative h-72" >
-              <img src={Glass} alt="AI Visualization" className="w-full h-full object-cover rounded-xl opacity-90 hidden lg:block" />
+              <LazyLoadImage effect="blur" src={Glass} alt="AI Visualization" className="w-full h-full object-cover rounded-xl opacity-90 hidden lg:block" />
             </div>
           </div>
         </div>

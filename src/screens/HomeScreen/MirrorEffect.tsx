@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { MirrorImg } from '../utls/imagepath';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import { MirrorImg } from '../../utls/imagepath';
 
 const MirrorEffect = () => {
   const navigate = useNavigate();
@@ -48,7 +50,7 @@ const MirrorEffect = () => {
               Experience The Mirror
             </button>
           </div>
-          <img src={MirrorImg} alt="Mirror Effect" className="w-full h-auto" />
+          <LazyLoadImage effect="blur" src={MirrorImg} alt="Mirror Effect" className="w-full h-auto" />
         </div>
       </div>
     </section>

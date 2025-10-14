@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, User, LogOut } from 'lucide-react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Logo } from '../../utls/imagepath';
 import DropdownThreeBG from './DropdownThreeBG';
 // import { useAuth } from '../../contexts/AuthContext';
-import { useGetUserQuery, useLogoutMutation } from '../../store/hooks';
+import { useGetUserQuery } from '../../store/hooks';
 import AuthModal from '../auth/AuthModal';
 
 const navLinks = [
@@ -30,7 +32,6 @@ const Header = () => {
   const { data: userData } = useGetUserQuery(undefined, {
     skip: !token, // Skip query if no token is available
   });
-  const [logoutMutation] = useLogoutMutation();
   const user = userData?.data?.user;
   const isAuthenticated = !!user && !!token;
 
@@ -51,7 +52,8 @@ const Header = () => {
     >
       <div className="max-w-7xl mx-auto px-6 py-4">
         <nav className="flex items-center justify-between">
-          <img
+          <LazyLoadImage
+            effect="blur"
             src={Logo}
             alt="Logo"
             className="md:h-8 h-10 lg:h-[70px] cursor-pointer"
@@ -113,9 +115,8 @@ const Header = () => {
                       Dashboard
                     </button>
                     <button
-                      onClick={async () => {
-                        await logoutMutation().unwrap();
-                        localStorage.removeItem('token');
+                      onClick={() => {
+                        localStorage.clear();
                         setShowProfileDropdown(false);
                         window.location.reload();
                       }}
@@ -192,9 +193,8 @@ const Header = () => {
                     Dashboard
                   </button>
                   <button
-                    onClick={async () => {
-                      await logoutMutation().unwrap();
-                      localStorage.removeItem('token');
+                    onClick={() => {
+                      localStorage.clear();
                       setMenuOpen(false);
                       window.location.reload();
                     }}

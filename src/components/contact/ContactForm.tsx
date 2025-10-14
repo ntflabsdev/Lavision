@@ -1,4 +1,7 @@
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import React, { useState } from 'react';
+import { useSendContactFormMutation } from '../../store/api';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +12,8 @@ const ContactForm = () => {
     message: ''
   });
 
+  const [sendContactForm, { isLoading, isSuccess, isError }] = useSendContactFormMutation();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
@@ -16,10 +21,21 @@ const ContactForm = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+    try {
+      await sendContactForm(formData).unwrap();
+      // Reset form on success
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Failed to send message:', error);
+    }
   };
 
   return (
@@ -38,7 +54,8 @@ const ContactForm = () => {
           {/* Support Section */}
           <div>
             <div className="mb-8">
-              <img 
+              <LazyLoadImage
+                effect="blur"
                 src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600" 
                 alt="Customer Support" 
                 className="w-full h-80 object-cover rounded-3xl"
@@ -58,6 +75,18 @@ const ContactForm = () => {
           {/* Contact Form */}
           <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
             <form onSubmit={handleSubmit} className="space-y-6">
+              {isSuccess && (
+                <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-xl relative" role="alert">
+                  <strong className="font-bold">Success!</strong>
+                  <span className="block sm:inline"> Your message has been sent.</span>
+                </div>
+              )}
+              {isError && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl relative" role="alert">
+                  <strong className="font-bold">Error!</strong>
+                  <span className="block sm:inline"> Something went wrong. Please try again.</span>
+                </div>
+              )}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
@@ -137,9 +166,10 @@ const ContactForm = () => {
 
               <button
                 type="submit"
-                className="w-full bg-purple-600 hover:bg-purple-700 text-white py-4 px-8 rounded-full text-lg font-medium transition-colors"
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white py-4 px-8 rounded-full text-lg font-medium transition-colors disabled:bg-purple-400"
+                disabled={isLoading}
               >
-                Send Message
+                {isLoading ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>

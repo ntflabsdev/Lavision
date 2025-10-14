@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { formatDate } from './utils';
+import { formatDate } from '../../utls/utils';
 
 interface Questionnaire {
   _id: string;

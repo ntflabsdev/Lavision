@@ -1,5 +1,7 @@
 import { Facebook, Twitter, Instagram, Github } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Logo } from '../../utls/imagepath';
 
 const Footer = () => {
@@ -14,7 +16,8 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
-          <img
+          <LazyLoadImage
+            effect="blur"
             src={Logo}
             alt="Logo"
             className="h-20 mb-4 cursor-pointer"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatDate, formatCurrency, getStatusColor } from './utils';
+import { formatDate, formatCurrency, getStatusColor } from '../../utls/utils';
 
 interface Transaction {
   _id: string;

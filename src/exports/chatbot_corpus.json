@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "source": "local react project",
+    "generated": "2025-10-14",
+    "purpose": "Chatbot training corpus extracted from UI copy"
+  },
+  "intents": [
+    {
+      "intent": "pricing_plans_overview",
+      "utterances": [
+        "What plans do you offer?",
+        "Tell me about your pricing",
+        "Explain the different subscription levels",
+        "What is included in each plan?"
+      ],
+      "responses": [
+        "We offer three plans: Explorer (Free), Visionary, and Legend. Explorer lets you start free with a static 3D home scene and a partial questionnaire. Visionary unlocks a full 3D interactive scene with customization, mirror mode for your dream body, one car, and a future partner. Legend includes everything: all advanced customization, advanced mirror mode with body, face and emotions, daily AI Dream Coach sessions, dream life video generation, and access to our private Visionaries Community."
+      ],
+      "facts": {
+        "free": "Explorer (Free Plan) includes one static 3D home scene, partial life vision questionnaire, no mirror mode or customization, and a simple preview.",
+        "visionary_price": "14.99 USD per month",
+        "legend_price": "34.99 USD per month"
+      }
+    },
+    {
+      "intent": "faq_general",
+      "utterances": [
+        "Common questions",
+        "I have a question",
+        "Help with pricing",
+        "Support questions"
+      ],
+      "faqs": [
+        {"q": "Can I change plans anytime?", "a": "Yes, you can upgrade or downgrade at any time. Changes apply next billing cycle; upgrades unlock features immediately."},
+        {"q": "Do you offer student discounts?", "a": "Yes, 50% discount with a valid .edu email; contact support with your student ID."},
+        {"q": "What happens if I downgrade?", "a": "Your dream worlds are preserved; some advanced features become unavailable until you upgrade again."},
+        {"q": "What's included in customer support?", "a": "All plans include email support within 24 hours. Legend users get priority support under 4 hours plus live chat and phone support."},
+        {"q": "Is there a free trial?", "a": "All paid plans include a 14-day free trial; cancel during the trial to avoid charges."},
+        {"q": "Can I use the platform offline?", "a": "An internet connection is required for AI processing and sync. Previously generated content is viewable offline for up to 30 days."}
+      ]
+    },
+    {
+      "intent": "mission_statement",
+      "utterances": ["What is your mission?","Why does LaVision exist?","Company mission","Purpose of the platform"],
+      "responses": [
+        "Our mission is to democratize dream manifestation by combining artificial intelligence with immersive technology so anyone can visualize and work toward their ideal life. We bridge the gap between dreams and reality through personalized AI-generated experiences."
+      ]
+    },
+    {
+      "intent": "company_values",
+      "utterances": ["What are your values?","Core values","Company principles"],
+      "responses": [
+        "Our core values are Innovation First, Human-Centered design, and Accessible Magic. We push AI and immersive tech boundaries, build from human psychology and aspirations, and make advanced technology effortless for everyone."
+      ]
+    },
+    {
+      "intent": "team_overview",
+      "utterances": ["Who is on your team?","Team members","Founders"],
+      "responses": [
+        "Sample team roles include Head of AI, CTO & Co-Founder, Head of Generative AI, and Company Director, represented by profiles like Alex Stone, Maya Rodriguez, Marcus Nova, and Aria Vega. (Images are illustrative placeholders.)"
+      ]
+    },
+    {
+      "intent": "platform_statistics",
+      "utterances": ["Stats","Platform numbers","Key metrics"],
+      "responses": [
+        "Key stats: 50M+ dreams visualized, presence in 200+ countries, 99% uptime, founded in 2019."
+      ]
+    },
+    {
+      "intent": "how_it_works",
+      "utterances": ["How does it work?","Process steps","Explain the flow"],
+      "responses": [
+        "Three steps: 1) Tell us your goals via a simple questionnaire. 2) AI world creation transforms them into 3D environments. 3) Immerse yourself in your vision and stay motivated seeing your future daily."
+      ]
+    },
+    {
+      "intent": "personalized_manifest",
+      "utterances": ["What is a manifest?","Personalized manifest","AI sentences"],
+      "responses": [
+        "Based on the character you create, AI generates inspiring sentences capturing your future lifestyle, values, and aspirations. It's unique, motivational, and shareable/editable for your journey."],
+      "bullets": ["Unique manifest aligned with your dream character","Motivational sentences to revisit daily","Shareable and editable"]
+    },
+    {
+      "intent": "contact_options",
+      "utterances": ["How can I contact you?","Support contact","Get in touch"],
+      "responses": [
+        "You can reach us by phone (+0123 456 789), email (demo@gmail.com), or visit us in San Francisco, CA. We welcome questions and stories about your dream manifestation journey."
+      ]
+    },
+    {
+      "intent": "cta_get_started",
+      "utterances": ["Get started","Start free","Begin now"],
+      "responses": [
+        "Start free with the Explorer plan and upgrade as your dreams grow. Every plan includes our core manifestation technology."
+      ]
+    }
+  ],
+  "kb_articles": [
+    {
+      "id": "pricing_overview",
+      "title": "Pricing Plans Overview",
+      "content": "Explorer: static 3D scene + partial questionnaire. Visionary: full 3D interactive scene, customization, mirror mode (dream body), one car, future partner. Legend: all features, advanced mirror (body + face + emotions), daily AI coach sessions, video generation, community access."
+    },
+    {
+      "id": "support_levels",
+      "title": "Support Levels",
+      "content": "All plans: email support <24h. Legend: priority <4h + live chat + phone (business hours)."
+    },
+    {
+      "id": "manifest_feature",
+      "title": "Personalized Manifest Feature",
+      "content": "AI generates an individualized manifest describing lifestyle, values, aspirations; motivational, revisitable, shareable, editable."
+    },
+    {
+      "id": "workflow_steps",
+      "title": "User Journey Steps",
+      "content": "1. Questionnaire collects goals. 2. AI generates immersive 3D world. 3. User explores vision for motivation."
+    }
+  ],
+  "raw_copy_samples": {
+    "hero_tagline": "Welcome to Your Vision Realized. Step into your dream world, thoughtfully crafted from your vision.",
+    "cta_main": "Start Creating Your Dream Life",
+    "pricing_cta": "Ready to Start Building Your Dream Life? Join over 10,000 dreamers...",
+    "mission_paragraph": "To democratize dream manifestation by combining AI with immersive technology..."
+  }
+}

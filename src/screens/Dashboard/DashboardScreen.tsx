@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCancelPaymentSubscriptionMutation, useGetDashboardQuery } from '../../store/api';
-import { DashboardTab } from './types';
+import { DashboardTab } from '../../types/types';
 import DashboardHeader from './DashboardHeader';
 import DashboardStats from './DashboardStats';
 import DashboardTabs from './DashboardTabs';

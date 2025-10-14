@@ -1,3 +1,5 @@
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Misson } from '../../utls/imagepath';
 
 const Mission = () => {
@@ -24,7 +26,8 @@ const Mission = () => {
             </div>
           </div>
           <div className="flex justify-center items-center">
-            <img
+            <LazyLoadImage
+              effect="blur"
               src={Misson}
               alt="Mission"
               className="w-full max-w-lg  object-cover"

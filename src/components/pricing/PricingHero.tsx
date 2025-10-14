@@ -1,3 +1,5 @@
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Map, DollarSign, Brain } from '../../utls/imagepath';
 import PricingCard from '../card/PricingCard';
 import { useState } from 'react';
@@ -9,7 +11,7 @@ const plans = [
     name: 'Explorer (Free Plan)',
     subtitle: '',
     price: 'Free',
-    icon: <img src={Map} alt="Map" className="w-10 h-10 sm:w-14 sm:h-14" />,
+    icon: <LazyLoadImage effect="blur" src={Map} alt="Map" className="w-10 h-10 sm:w-14 sm:h-14" />,
     features: [
       'One static 3D home scene',
       'Partial life vision questionnaire',
@@ -24,7 +26,7 @@ const plans = [
     name: 'Legend (VIP Plan)',
     subtitle: '',
     price: '$34.99/month',
-    icon: <img src={DollarSign} alt="Dollar" className="w-10 h-10 sm:w-14 sm:h-14" />,
+    icon: <LazyLoadImage effect="blur" src={DollarSign} alt="Dollar" className="w-10 h-10 sm:w-14 sm:h-14" />,
     features: [
       'All features unlocked',
       'Advanced Mirror Mode: body + face + emotions',
@@ -41,7 +43,7 @@ const plans = [
     name: 'Visionary (Core Plan)',
     subtitle: '',
     price: '$14.99/month',
-    icon: <img src={Brain} alt="Brain" className="w-10 h-10 sm:w-14 sm:h-14" />,
+    icon: <LazyLoadImage effect="blur" src={Brain} alt="Brain" className="w-10 h-10 sm:w-14 sm:h-14" />,
     features: [
       'Full 3D interactive scene',
       'Customize house, parking, environment',

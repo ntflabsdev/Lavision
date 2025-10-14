@@ -10,6 +10,7 @@ import ContactPage from './screens/ContactPage';
 import ProtectedRoute from './layouts/ProtectedRoute';
 import SubscriptionCancel from './components/subscription/SubscriptionCancel';
 import SubscriptionSuccess from './components/subscription/SubscriptionSuccess';
+import Fab from './components/fab/Fab';
 
 // PayPal configuration
 const paypalOptions = {
@@ -26,6 +27,7 @@ function App() {
     <PayPalScriptProvider options={paypalOptions}>
       <Provider store={store}>
         <Router>
+          <Fab />
           <Layout>
             <Routes>
               <Route path="/" element={<HomeScreen />} />

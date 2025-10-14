@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatDate, getStatusColor } from './utils';
+import { formatDate, getStatusColor } from '../../utls/utils';
 
 interface Subscription {
   _id: string;

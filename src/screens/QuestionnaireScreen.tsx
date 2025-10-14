@@ -1,7 +1,6 @@
-import Stats from "../components/Stats";
+import Stats from "./HomeScreen/Stats";
 import StepperCard from "../components/StepperCard";
 import TransformFuture from "../components/TransformFuture";
-
 const QuestionnaireScreen = () => {
   return (
     <div className="min-h-screen">

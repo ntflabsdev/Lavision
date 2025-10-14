@@ -1,4 +1,4 @@
-    import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 // Base API URL - adjust this based on your backend server
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
@@ -368,13 +368,7 @@ export const dreamLifeApi = createApi({
       query: () => '/auth/profile',
       providesTags: ['Auth'],
     }),
-    logout: builder.mutation<{ success: boolean; message: string }, void>({
-      query: () => ({
-        url: '/auth/logout',
-        method: 'POST',
-      }),
-      invalidatesTags: ['Auth'],
-    }),
+  // logout endpoint removed; handle logout client-side only
     getDashboard: builder.query<DashboardResponse, void>({
       query: () => '/auth/dashboard',
       providesTags: ['Auth', 'Subscriptions', 'Payments'],
@@ -503,6 +497,16 @@ export const dreamLifeApi = createApi({
       query: (subscriptionId) => `/payments/subscriptions/${subscriptionId}`,
       providesTags: ['Subscriptions'],
     }),
+
+    // Contact form endpoint
+    sendContactForm: builder.mutation<ContactResponse, ContactRequest>({
+      query: (body) => ({
+        url: '/contact',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Contact'],
+    }),
   }),
 });
 
@@ -521,10 +525,10 @@ export const {
   useRegisterMutation,
   useForgotPasswordMutation,
   useGetUserQuery,
-  useLogoutMutation,
   useGetDashboardQuery,
   // Session hooks
 
   // Subscription details hook
   useGetSubscriptionDetailsQuery,
+  useSendContactFormMutation,
 } = dreamLifeApi;

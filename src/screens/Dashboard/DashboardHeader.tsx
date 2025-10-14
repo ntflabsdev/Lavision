@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatDate } from './utils';
+import { formatDate } from '../../utls/utils';
 
 interface DashboardHeaderProps {
   user: {

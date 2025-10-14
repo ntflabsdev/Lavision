@@ -130,8 +130,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMode = 'l
               {mode === 'forgot-password' && 'Reset Password'}
             </h2>
             <p className="text-gray-600">
-              {mode === 'login' && 'Sign in to your DreamLife account'}
-              {mode === 'register' && 'Join DreamLife and start your journey'}
+              {mode === 'login' && 'Sign in to your LAvision account'}
+              {mode === 'register' && 'Join LAvision and start your journey'}
               {mode === 'forgot-password' && 'Enter your email to reset your password'}
             </p>
           </div>

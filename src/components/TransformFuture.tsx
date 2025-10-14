@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import { FutureImg } from '../utls/imagepath';
 
 const TransformFuture = () => {
@@ -15,8 +17,7 @@ const TransformFuture = () => {
     <section className="py-20 px-6 bg-[#FEF4FF]">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-        <img src={FutureImg} alt="Transform Your Future" className="w-full h-auto" />
-          
+        <LazyLoadImage effect="blur" src={FutureImg} alt="Transform Your Future" className="w-full h-auto" />
           <div>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               Ready to Transform Your{' '}
@@ -34,7 +35,7 @@ const TransformFuture = () => {
                 onClick={handleBuildDreamLife}
                 className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-200 transform hover:scale-105"
               >
-                Build Your Dream Life Today
+                Build Your LAvision Today
               </button>
               <button 
                 onClick={handleJoinEarlyAccess}

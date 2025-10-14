@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Home, Heart, Zap, Loader2 } from "lucide-react";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Curve1, Curve2, Curve3 } from "../utls/imagepath";
 import { useAppSelector } from "../store/hooks";
 import { useGetQuestionnaireQuery } from "../store/api";
@@ -147,7 +149,8 @@ const VisionRealizedScreen = () => {
 
         <div className="relative w-full max-w-6xl mx-auto">
           <div className="bg-gradient-to-br from-purple-900/20 to-cyan-900/20 rounded-3xl p-8 mb-8 backdrop-blur-sm border border-white/10">
-            <img
+            <LazyLoadImage
+              effect="blur"
               src={categoryOptions[currentGallery]?.images[0] || Curve1}
               alt="Main Vision"
               className="w-full h-80 object-cover rounded-2xl shadow-2xl"
@@ -227,7 +230,8 @@ const VisionRealizedScreen = () => {
           <div className="flex-1 flex justify-center items-center">
             <div className="relative">
               <div className="w-80 h-80 rounded-3xl flex items-center justify-center">
-                <img
+                <LazyLoadImage
+                  effect="blur"
                   src="/src/assets/glass.png"
                   alt="Brain Visualization"
                   className="w-64 h-80 object-contain"

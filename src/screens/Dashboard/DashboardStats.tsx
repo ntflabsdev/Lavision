@@ -1,6 +1,6 @@
 import React from 'react';
 import { CreditCard, Calendar, FileText, DollarSign } from 'lucide-react';
-import { formatCurrency } from './utils';
+import { formatCurrency } from '../../utls/utils';
 
 interface DashboardStatsProps {
   stats: {

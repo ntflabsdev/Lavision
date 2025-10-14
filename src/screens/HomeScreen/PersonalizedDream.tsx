@@ -1,6 +1,8 @@
 import { Sparkles, CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { NoteImg } from '../utls/imagepath';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import { NoteImg } from '../../utls/imagepath';
 
 const PersonalizedDream = () => {
   const navigate = useNavigate();
@@ -50,7 +52,7 @@ const PersonalizedDream = () => {
           </div>
           
           <div className="relative flex flex-col lg:flex-row gap-4 w-full">
-            <img src={NoteImg} alt="NOTE" className="hidden md:block w-full lg:w-1/2 h-auto rounded-md" />
+            <LazyLoadImage effect="blur" src={NoteImg} alt="NOTE" className="hidden md:block w-full lg:w-1/2 h-auto rounded-md" />
             <div className="w-full lg:w-1/2 bg-[#170C1DCC] rounded-md p-4 sm:p-6 text-white mt-4 lg:mt-0">
               <p className="text-sm leading-relaxed mb-6">
                 My lifestyle is guided by a clearly defined vision that shapes every decision and action I take. Ambition is refined into measurable, structured goals that provide direction and clarity. Through consistent effort and disciplined execution, these goals are achieved step by step. Each accomplishment strengthens the foundation of long-term success, ensuring steady progress toward the future I have envisioned.

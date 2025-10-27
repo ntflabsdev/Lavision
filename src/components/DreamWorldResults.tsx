@@ -16,7 +16,7 @@ const DreamWorldResults = () => {
 
   const handleGenerateDreamWorld = () => {
     if (!isSubscribed) {
-      navigate('/subscribe'); // Redirect to subscription page if not subscribed
+      navigate('/pricing'); // Redirect to subscription page if not subscribed
       return;
     }
     setIsGenerating(true);

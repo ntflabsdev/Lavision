@@ -265,6 +265,24 @@ export interface AuthRequest {
   lastName?: string;
 }
 
+// Extended login request supporting social providers (google, apple)
+export interface LoginRequest {
+  email?: string; // optional for social
+  password?: string; // optional for social
+  provider?: 'google' | 'apple';
+  idToken?: string; // Firebase ID token from provider
+}
+
+// Extended register request supporting social providers
+export interface RegisterRequest {
+  email?: string; // may come from provider claims
+  password?: string; // only for password flow
+  firstName?: string;
+  lastName?: string;
+  provider?: 'google' | 'apple';
+  idToken?: string;
+}
+
 export interface ForgotPasswordRequest {
   email: string;
 }
@@ -341,7 +359,7 @@ export const dreamLifeApi = createApi({
   tagTypes: ['Questionnaire', 'DreamWorld', 'Contact', 'UserSession', 'Payments', 'Subscriptions', 'Auth'],
   endpoints: (builder) => ({
 
-    login: builder.mutation<AuthResponse, { email: string; password: string }>({
+    login: builder.mutation<AuthResponse, LoginRequest>({
       query: (body) => ({
         url: '/auth/login',
         method: 'POST',
@@ -349,7 +367,7 @@ export const dreamLifeApi = createApi({
       }),
       invalidatesTags: ['Auth'],
     }),
-    register: builder.mutation<AuthResponse, AuthRequest>({
+    register: builder.mutation<AuthResponse, RegisterRequest>({
       query: (body) => ({
         url: '/auth/register',
         method: 'POST',

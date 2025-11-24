@@ -8,53 +8,57 @@ import { useKeenSlider } from "keen-slider/react";
 
 const plans = [
   {
-    name: 'Explorer (Free Plan)',
+    name: 'Starter',
     subtitle: '',
-    price: 'Free',
+    price: '29',
     icon: <LazyLoadImage effect="blur" src={Map} alt="Map" className="w-10 h-10 sm:w-14 sm:h-14" />,
     features: [
-      'One static 3D home scene',
-      'Partial life vision questionnaire',
-      'No mirror mode or customization',
-      'A simple preview of what\'s possible'
+      'Dream Home Visualization',
+      '10 Guided Questions',
+      'Basic Eve Companion',
+      'Monthly Vision Updates',
+      'Personal Goal Tracking'
     ],
-    buttonText: 'Start Exploring',
-    planType: 'free' as const,
-    planId: 'free-plan',
-  },
-  {
-    name: 'Legend (VIP Plan)',
-    subtitle: '',
-    price: '$34.99/month',
-    icon: <LazyLoadImage effect="blur" src={DollarSign} alt="Dollar" className="w-10 h-10 sm:w-14 sm:h-14" />,
-    features: [
-      'All features unlocked',
-      'Advanced Mirror Mode: body + face + emotions',
-      'AI Dream Coach (daily sessions)',
-      'Dream life video generation',
-      'Access to private Visionaries Community',
-    ],
-    buttonText: 'Become a Legend',
+    buttonText: 'Begin Journey',
     planType: 'paid' as const,
-    priceValue: '34.99',
-    planId: 'legend-plan',
+    priceValue: '29',
+    planId: 'starter-plan',
   },
   {
-    name: 'Visionary (Core Plan)',
+    name: 'Vision',
     subtitle: '',
-    price: '$14.99/month',
+    price: '79',
     icon: <LazyLoadImage effect="blur" src={Brain} alt="Brain" className="w-10 h-10 sm:w-14 sm:h-14" />,
     features: [
-      'Full 3D interactive scene',
-      'Customize house, parking, environment',
-      'Mirror Mode: see your dream body',
-      'Add 1 car + future partner',
-      'Great entry point for serious users'
+      'All Starter Features',
+      'Dream Office & Car Portals',
+      'Advanced Eve AI Companion',
+      'Weekly Vision Refinements',
+      'Reflection Room Access',
+      'Priority Support'
     ],
-    buttonText: 'Start My Vision',
+    buttonText: 'Begin Journey',
     planType: 'paid' as const,
-    priceValue: '14.99',
-    planId: 'visionary-plan',
+    priceValue: '79',
+    planId: 'vision-plan',
+    featured: true,
+  },
+  {
+    name: 'Master',
+    subtitle: '',
+    price: '199',
+    icon: <LazyLoadImage effect="blur" src={DollarSign} alt="Dollar" className="w-10 h-10 sm:w-14 sm:h-14" />,
+    features: [
+      'All Vision Features',
+      'Unlimited Portal Access',
+      'Daily Vision Coaching',
+      'Custom World Creation',
+      'Lifetime Access'
+    ],
+    buttonText: 'Begin Journey',
+    planType: 'paid' as const,
+    priceValue: '199',
+    planId: 'master-plan',
   }
 ];
 
@@ -89,13 +93,10 @@ const PricingHero = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-20">
         <div className="text-center">
           <p className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 text-white">
-            Choose Your <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Dream Plan</span>
+            Choose Your <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Journey</span>
           </p>
-          <p className="text-lg sm:text-xl md:text-2xl text-[#CACACA] max-w-3xl mx-auto mb-2">
-            Start free and upgrade as your dreams grow
-          </p>
-          <p className="text-base sm:text-lg text-[#CACACA] max-w-2xl mx-auto">
-            Every plan includes our core manifestation technology
+          <p className="text-lg sm:text-xl md:text-2xl text-[#CACACA] max-w-3xl mx-auto mb-8">
+            Select The Plan That Aligns With Your Vision
           </p>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Home, Wand2 } from 'lucide-react';
+import { Wand2 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { updateAnswer, setCurrentStep, syncWithApiResponse } from '../store/questionnaireSlice';
 import { useGetUserQuery } from '../store/hooks';
@@ -109,6 +109,7 @@ const StepperCard = () => {
   const dispatch = useAppDispatch();
   const { answers, currentStep } = useAppSelector((state) => state.questionnaire);
   const [step, setStep] = useState(currentStep);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
   const [activeQuestionKey, setActiveQuestionKey] = useState<string>('');
@@ -142,11 +143,18 @@ const StepperCard = () => {
     }
   }, [questionnaireData, dispatch]);
 
-  const isFirst = step === 0;
-  const isLast = step === questionGroups.length - 1;
   const group = questionGroups[step];
+  const currentQuestion = group.questions[currentQuestionIndex];
+  
+  // Calculate total questions across all groups
+  const totalQuestions = questionGroups.reduce((sum, g) => sum + g.questions.length, 0);
+  const completedQuestions = questionGroups.slice(0, step).reduce((sum, g) => sum + g.questions.length, 0) + currentQuestionIndex;
+  const progressPercentage = Math.round(((completedQuestions + 1) / totalQuestions) * 100);
 
-  const isGroupValid = group.questions.every(q => answers[q.key] && answers[q.key].trim() !== '');
+  const isCurrentQuestionValid = answers[currentQuestion.key] && answers[currentQuestion.key].trim() !== '';
+  const isLastQuestionInGroup = currentQuestionIndex === group.questions.length - 1;
+  const isLastGroup = step === questionGroups.length - 1;
+  const isFirstQuestion = step === 0 && currentQuestionIndex === 0;
 
   const handleChange = (key: string, value: string) => {
     dispatch(updateAnswer({ key, value }));
@@ -157,15 +165,19 @@ const StepperCard = () => {
     // Close tooltip if open
     setTooltipVisible(false);
 
-    if (!isGroupValid) return;
+    if (!isCurrentQuestionValid) return;
 
-    if (!isLast) {
+    if (!isLastQuestionInGroup) {
+      // Move to next question in current group
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else if (!isLastGroup) {
+      // Move to next group
       const nextStep = step + 1;
       setStep(nextStep);
+      setCurrentQuestionIndex(0);
       dispatch(setCurrentStep(nextStep));
-      // No API call here, just update local state
     } else {
-      // Last step completed, save all answers and complete questionnaire
+      // Last question completed, save all answers and complete questionnaire
       if (currentUserId) {
         try {
           // First save all the questionnaire data
@@ -188,11 +200,15 @@ const StepperCard = () => {
     // Close tooltip if open
     setTooltipVisible(false);
 
-    if (!isFirst) {
+    if (currentQuestionIndex > 0) {
+      // Go back to previous question in current group
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    } else if (step > 0) {
+      // Go back to previous group's last question
       const prevStep = step - 1;
       setStep(prevStep);
+      setCurrentQuestionIndex(questionGroups[prevStep].questions.length - 1);
       dispatch(setCurrentStep(prevStep));
-      // No API call here, just update local state
     } else {
       navigate('/');
     }
@@ -222,58 +238,68 @@ const StepperCard = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-[#1A1339] to-[#402659] rounded-2xl p-8 md:p-12 max-w-2xl mx-auto w-full shadow-2xl border border-[#2B2042] text-center relative animate-fade-in">
+    <div className="relative z-10 text-center px-8 max-w-4xl backdrop-blur-xl bg-white/5 rounded-3xl py-12 border border-white/10 mx-auto w-full shadow-2xl">
 
-      <div className="flex flex-col items-center mb-8">
-        <span className="bg-white rounded-full p-4 mb-4 shadow-md">
-          <Home className="text-[#8866FF]" size={36} />
-        </span>
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">{group.title}</h2>
-        <p className="text-lg text-gray-300 mb-2">Shape your future identity</p>
-      </div>
-      {/* Questions */}
-      <form className="flex flex-col gap-6 mb-4">
-        {group.questions.map(q => (
-          <div key={q.key} className="flex flex-col gap-2">
-            <label htmlFor={q.key} className="text-left text-white text-2xl font-normal mb-1">{q.label}</label>
-            <div className="relative">
-              <textarea
-                ref={(el) => (textareaRefs.current[q.key] = el)}
-                id={q.key}
-                className="w-full rounded-lg bg-[#18122B] border border-[#3C2960] text-white text-base px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-[#A66CFF] placeholder-gray-400 transition-all duration-200 resize-y"
-                placeholder={q.placeholder || 'Write your answer here...'}
-                value={answers[q.key] || ''}
-                rows={2}
-                onChange={e => handleChange(q.key, e.target.value)}
-              />
-              {/* Rephrase button - show only when there's text */}
-              {answers[q.key] && answers[q.key].trim() && (
-                <button
-                  type="button"
-                  onClick={(e) => handleRephraseClick(q.key, e)}
-                  className="absolute top-3 right-3 p-2 text-[#8866FF] hover:text-[#A66CFF] hover:bg-[#2B2042] rounded-md transition-all duration-200 group"
-                  title="AI Rephrase & Suggestions"
-                >
-                  <Wand2 size={16} className="group-hover:scale-110 transition-transform" />
-                </button>
-              )}
-            </div>
+      {/* Progress Section */}
+      <div className="mb-12">
+        <div className="flex justify-between items-center mb-3">
+          <p className="text-white text-base font-normal">Step {completedQuestions + 1} of {totalQuestions}</p>
+          <div className="text-right">
+            <p className="text-white text-2xl font-semibold">{progressPercentage}%</p>
+            <p className="text-gray-400 text-xs">complete</p>
           </div>
-        ))}
-      </form>
+        </div>
+        <div className="w-full bg-white/10 rounded-full h-4 overflow-hidden">
+          <div 
+            className="h-full bg-gradient-to-r from-[#4B88F7] via-[#8866FF] to-[#CC66FF] transition-all duration-500 ease-out rounded-full"
+            style={{ width: `${progressPercentage}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Question */}
+      <div className="mb-10">
+        <h2 className="text-2xl md:text-3xl font-semibold text-white leading-relaxed mb-10 px-4">
+          {currentQuestion.label}
+        </h2>
+        
+        <div className="relative">
+          <textarea
+            ref={(el) => (textareaRefs.current[currentQuestion.key] = el)}
+            id={currentQuestion.key}
+            className="w-full rounded-xl bg-[#1F1833]/80 border border-white/5 text-white text-base px-5 py-4 pr-12 focus:outline-none focus:ring-2 focus:ring-[#8866FF]/50 focus:border-transparent placeholder-gray-500 transition-all duration-200 resize-none min-h-[140px]"
+            placeholder={currentQuestion.placeholder || 'Write your answer here...'}
+            value={answers[currentQuestion.key] || ''}
+            rows={5}
+            onChange={e => handleChange(currentQuestion.key, e.target.value)}
+          />
+          {/* Rephrase button - show only when there's text */}
+          {answers[currentQuestion.key] && answers[currentQuestion.key].trim() && (
+            <button
+              type="button"
+              onClick={(e) => handleRephraseClick(currentQuestion.key, e)}
+              className="absolute top-4 right-4 p-2 text-[#8866FF] hover:text-[#A66CFF] hover:bg-[#2B2042] rounded-md transition-all duration-200 group"
+              title="AI Rephrase & Suggestions"
+            >
+              <Wand2 size={18} className="group-hover:scale-110 transition-transform" />
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Buttons */}
-      <div className="flex justify-between gap-4 mt-8">
+      <div className="flex justify-between gap-4 mt-10">
         <button
-          className="bg-transparent border border-[#4B88F7] text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:bg-[#1A1339]"
+          className="bg-gradient-to-r from-[#8B5CF6] to-[#A78BFA] text-white px-12 py-3.5 rounded-xl font-medium transition-all duration-200 hover:shadow-lg hover:shadow-purple-500/30 hover:scale-[1.02] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 text-base"
           onClick={handleBack}
-          disabled={isFirst}
+          disabled={isFirstQuestion}
         >
           Back
         </button>
         <button
-          className="bg-gradient-to-r from-[#00AAFF] to-[#CC66FF] text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:from-[#3C2960] hover:to-[#A66CFF] disabled:opacity-50"
+          className="bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] text-white px-12 py-3.5 rounded-xl font-medium transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/30 hover:scale-[1.02] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 text-base"
           onClick={handleNext}
-          disabled={!isGroupValid || isSaving }
+          disabled={!isCurrentQuestionValid || isSaving}
         >
           {isSaving ? (
             <>
@@ -283,8 +309,8 @@ const StepperCard = () => {
               </svg>
               Saving...
             </>
-          ) : isLast ? (
-            'Complete & See Results'
+          ) : (isLastGroup && isLastQuestionInGroup) ? (
+            'Complete'
           ) : (
             'Next'
           )}

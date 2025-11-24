@@ -31,12 +31,10 @@ const AiChatPopup = ({ isOpen, onClose }: AiChatPopupProps) => {
 
       newSocket.on('connect', () => {
         setIsConnected(true);
-  console.log('✅ Connected to LAvision chatbot');
       });
 
       newSocket.on('disconnect', () => {
         setIsConnected(false);
-        console.log('❌ Disconnected from chatbot');
       });
 
       // Handle bot messages

@@ -55,15 +55,12 @@ const PayPalBtn: React.FC<PayPalBtnProps> = ({
                         });
                     },
                     onApprove: function(data: any) {
-                        console.log('PayPal subscription approved:', data.subscriptionID);
                         onApprove(data);
                     },
                     onError: function(err: any) {
-                        console.error('PayPal error:', err);
                         if (onError) onError(err);
                     },
                     onCancel: function(data: any) {
-                        console.log('PayPal cancelled:', data);
                         if (onCancel) onCancel(data);
                     }
                 }).render('#paypal-button-container');

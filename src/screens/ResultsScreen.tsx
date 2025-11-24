@@ -1,5 +1,5 @@
 import DreamWorldResults from '../components/DreamWorldResults';
-import Stats from './HomeScreen/Stats';
+import Stats from '../notneeded/Stats';
 import TransformFuture from '../components/TransformFuture';
 
 const ResultsScreen = () => {

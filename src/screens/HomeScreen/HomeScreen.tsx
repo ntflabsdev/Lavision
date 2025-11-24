@@ -1,23 +1,13 @@
 import Hero from './Hero';
-import PersonalizedDream from './PersonalizedDream';
-import HowItWorks from './HowItWorks';
-import MirrorEffect from './MirrorEffect';
-import FutureFeatures from './FutureFeatures';
-import TransformFuture from '../../components/TransformFuture';
-import Stats from './Stats';
-import AICoach from './AiCoach';
+
+import Header from '../../components/header/Header';
 
 const HomeScreen = () => {
   return (
     <>
+      <Header />
       <Hero />
-      <PersonalizedDream />
-      <HowItWorks />
-      <MirrorEffect />
-      <FutureFeatures />
-      <TransformFuture />
-      <Stats />
-      <AICoach/>
+
     </>
   );
 };

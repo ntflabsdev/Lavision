@@ -110,8 +110,7 @@ const VisionRealizedScreen = () => {
           setIsGeneratingAffirmations(false);
         }
       } else {
-        // No questionnaire data available, use default affirmations
-        console.log('No questionnaire data available, using default affirmations');
+          console.log('No questionnaire data available, using default affirmations');
       }
     };
 

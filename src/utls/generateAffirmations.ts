@@ -6,25 +6,20 @@ const genAI = new GoogleGenerativeAI(API_KEY);
 export interface QuestionnaireAnswers {
   [key: string]: string;
 }
-
-// Only working models based on test results (no quota issues, supports text generation)
 const WORKING_MODELS = [
-  'gemini-2.0-flash',           // ✅ Fast and reliable
-  'gemini-2.0-flash-001',       // ✅ Stable version
-  'gemini-2.0-flash-exp',       // ✅ Experimental but working
-  'gemini-2.0-flash-lite',      // ✅ Lightweight version
-  'gemini-2.0-flash-lite-001',  // ✅ Stable lite version
-  'gemini-2.0-flash-lite-preview-02-05', // ✅ Preview version
-  'gemini-2.0-flash-lite-preview',       // ✅ Latest lite preview
-  'gemini-2.5-flash-lite-preview-06-17', // ✅ Latest working 2.5 model
+  'gemini-2.0-flash',          
+  'gemini-2.0-flash-001',      
+  'gemini-2.0-flash-exp',       
+  'gemini-2.0-flash-lite',     
+  'gemini-2.0-flash-lite-001',  
+  'gemini-2.0-flash-lite-preview-02-05', 
+  'gemini-2.0-flash-lite-preview',       
+  'gemini-2.5-flash-lite-preview-06-17', 
 ];
 
-// Function to get available models directly from the Google AI API
 export const getAvailableModelsFromAPI = async (): Promise<string[]> => {
   try {
-    console.log('🔍 Fetching available models from Google AI API...');
     
-    // Make direct API call to list models
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${API_KEY}`);
     
     if (!response.ok) {
@@ -32,7 +27,6 @@ export const getAvailableModelsFromAPI = async (): Promise<string[]> => {
     }
     
     const data = await response.json();
-    console.log('📋 Raw API response:', data);
     
     if (data.models && Array.isArray(data.models)) {
       const availableModels = data.models
@@ -48,32 +42,26 @@ export const getAvailableModelsFromAPI = async (): Promise<string[]> => {
         })
         .map((model: any) => model.name.replace('models/', ''));
         
-      console.log('✅ Available models that support generateContent:', availableModels);
       return availableModels;
     }
     
     return [];
     
   } catch (error: any) {
-    console.error('❌ Error fetching models from API:', error);
     return WORKING_MODELS; // Fallback to known working models
   }
 };
 
 // Function to get available models using multiple methods
 export const discoverAvailableModels = async (): Promise<string[]> => {
-  console.log('🕵️ Discovering available models...');
   
   // Try the direct API method first
   let models = await getAvailableModelsFromAPI();
   
   if (models.length > 0) {
-    console.log('✅ Got models from direct API call');
     return models;
   }
   
-  // Fallback to known working models
-  console.warn('⚠️ Could not discover models from API, using known working models');
   return WORKING_MODELS;
 };
 
@@ -81,11 +69,9 @@ export const discoverAvailableModels = async (): Promise<string[]> => {
 export const testWorkingModels = async (modelNames: string[]): Promise<string[]> => {
   const workingModels: string[] = [];
   
-  console.log(`🧪 Testing ${modelNames.length} models...`);
   
   for (const modelName of modelNames) {
     try {
-      console.log(`Testing model: ${modelName}`);
       
       const model = genAI.getGenerativeModel({ 
         model: modelName,
@@ -99,7 +85,6 @@ export const testWorkingModels = async (modelNames: string[]): Promise<string[]>
       const response = await result.response;
       
       if (response.text()) {
-        console.log(`✅ Model ${modelName} works`);
         workingModels.push(modelName);
       }
     } catch (error: any) {
@@ -107,7 +92,6 @@ export const testWorkingModels = async (modelNames: string[]): Promise<string[]>
     }
   }
   
-  console.log(`🎯 Found ${workingModels.length} working models:`, workingModels);
   return workingModels;
 };
 
@@ -122,7 +106,6 @@ export const generatePersonalizedAffirmations = async (
 
   for (const modelName of modelNames) {
     try {
-      console.log(`Trying to generate affirmations with model: ${modelName}`);
 
       const model = genAI.getGenerativeModel({
         model: modelName,
@@ -187,7 +170,6 @@ Format: Return exactly 8 affirmations, one per line, no numbering or bullet poin
         }
       }
 
-      console.log(`✅ Successfully generated affirmations with model: ${modelName}`);
       return affirmations;
 
     } catch (error: any) {
@@ -282,19 +264,14 @@ const getDefaultAffirmations = (): string[] => [
   "I am worthy of all the beautiful experiences life has to offer.",
 ];
 
-// 🚀 MAIN FUNCTION: Call this to discover and test all available models
 export const discoverAndTestAllModels = async (): Promise<{
   apiModels: string[];
   workingModels: string[];
   summary: string;
 }> => {
-  console.log('🚀 === GEMINI MODEL DISCOVERY STARTED ===');
   
-  // Get models from API
   const apiModels = await getAvailableModelsFromAPI();
-  console.log(`📋 Found ${apiModels.length} models from API:`, apiModels);
   
-  // Test which ones actually work
   const modelsToTest = apiModels.length > 0 ? apiModels : [
     'gemini-1.5-flash-8b-latest',
     'gemini-1.5-flash-latest', 
@@ -316,7 +293,6 @@ export const discoverAndTestAllModels = async (): Promise<{
 📞 Next steps: Use these working model names in your code!
   `;
   
-  console.log(summary);
   
   return {
     apiModels,

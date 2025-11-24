@@ -4,6 +4,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { store } from './store';
 import Layout from './layouts/Layout';
 import { HomeScreen, QuestionnaireScreen, ResultsScreen, VisionRealizedScreen, DashboardScreen } from './screens';
+import { LoginScreen, RegisterScreen, ForgotPasswordScreen } from './screens/auth';
 import Aboutus from './screens/Aboutus';
 import PricingPage from './screens/PricingPage';
 import ContactPage from './screens/ContactPage';
@@ -14,13 +15,12 @@ import Fab from './components/fab/Fab';
 
 // PayPal configuration
 const paypalOptions = {
-  clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID || "YOUR_PAYPAL_CLIENT_ID", 
+  clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID || "YOUR_PAYPAL_CLIENT_ID",
   components: "buttons",
-  intent: "subscription", 
-  vault: true, 
+  intent: "subscription",
+  vault: true,
 };
 
-console.log("paypal ",paypalOptions)
 
 function App() {
   return (
@@ -28,9 +28,12 @@ function App() {
       <Provider store={store}>
         <Router>
           <Fab />
-          <Layout>
-            <Routes>
-              <Route path="/" element={<HomeScreen />} />
+          <Routes>
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/register" element={<RegisterScreen />} />
+            <Route path="/forgot-password" element={<ForgotPasswordScreen />} />
+            <Route element={<Layout />}>
+              <Route path="/login" element={<LoginScreen />} />
               <Route path="/questionnaire" element={<QuestionnaireScreen />} />
               <Route path="/results" element={<ResultsScreen />} />
               <Route path="/vision-realized" element={<VisionRealizedScreen />} />
@@ -44,8 +47,8 @@ function App() {
                   <DashboardScreen />
                 </ProtectedRoute>
               } />
-            </Routes>
-          </Layout>
+            </Route>
+          </Routes>
         </Router>
       </Provider>
     </PayPalScriptProvider>

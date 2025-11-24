@@ -28,7 +28,6 @@ const RephraseTooltip = ({
   const handleRephrase = async () => {
     if (!originalText.trim() || isLoading || requestInProgress.current) return;
     
-    console.log('Starting rephrase for text:', originalText.substring(0, 50) + '...');
     setIsLoading(true);
     requestInProgress.current = true;
     
@@ -37,7 +36,6 @@ const RephraseTooltip = ({
         tone: selectedTone,
         style: selectedStyle
       });
-      console.log('Rephrase successful');
       onRephrase(rephrasedText);
       onClose();
     } catch (error: any) {

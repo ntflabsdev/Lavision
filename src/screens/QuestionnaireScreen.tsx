@@ -1,4 +1,4 @@
-import Stats from "./HomeScreen/Stats";
+import Stats from "../notneeded/Stats";
 import StepperCard from "../components/StepperCard";
 import TransformFuture from "../components/TransformFuture";
 const QuestionnaireScreen = () => {

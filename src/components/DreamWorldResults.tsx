@@ -22,7 +22,6 @@ const DreamWorldResults = () => {
     setIsGenerating(true);
     setTimeout(() => {
       setIsGenerating(false);
-      console.log('Generating dream world with answers:', answers);
       navigate('/vision-realized');
     }, 3000);
   };

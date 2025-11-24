@@ -5,9 +5,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Logo } from '../../utls/imagepath';
 import DropdownThreeBG from './DropdownThreeBG';
-// import { useAuth } from '../../contexts/AuthContext';
 import { useGetUserQuery } from '../../store/hooks';
-import AuthModal from '../auth/AuthModal';
 
 const navLinks = [
   { label: 'Home', href: '#' },
@@ -20,7 +18,6 @@ const Header = () => {
   const [selected, setSelected] = useState('Home');
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -130,7 +127,7 @@ const Header = () => {
               </div>
             ) : (
               <button
-                onClick={() => setShowAuthModal(true)}
+                onClick={() => navigate('/register')}
                 className="bg-gradient-to-r from-[#7F66FF] to-[#CC66FF] text-white px-6 py-2 rounded-full transition-all duration-200 transform hover:scale-105"
               >
                 Get Started
@@ -207,7 +204,7 @@ const Header = () => {
               ) : (
                 <button
                   onClick={() => {
-                    setShowAuthModal(true);
+                    navigate('/register');
                     setMenuOpen(false);
                   }}
                   className="bg-gradient-to-r from-[#7F66FF] to-[#CC66FF] text-white px-2 py-2 rounded"
@@ -218,13 +215,6 @@ const Header = () => {
             </div>
           </div>
         )}
-
-        {/* Authentication Modal */}
-        <AuthModal
-          isOpen={showAuthModal}
-          onClose={() => setShowAuthModal(false)}
-          initialMode="login"
-        />
       </div>
     </header>
   );

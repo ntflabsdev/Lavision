@@ -2,12 +2,9 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const API_KEY =  'AIzaSyA6OuX2EJ9H5YwiOUhgolYCxmFCnFHtIgo';
 
-console.log("skjdfhdkfhs",API_KEY)
-console.log('Initializing Gemini with key starting with:', API_KEY.substring(0, 10) + '...');
 
 // Initialize with specific API version if possible
 const genAI = new GoogleGenerativeAI(API_KEY);
-console.log('GoogleGenerativeAI instance created:', genAI);
 export interface RephraseOptions {
   tone?: 'professional' | 'casual' | 'inspiring' | 'creative' | 'concise';
   style?: 'detailed' | 'brief' | 'poetic' | 'straightforward';
@@ -17,7 +14,6 @@ export const rephraseText = async (
   originalText: string, 
   options: RephraseOptions = {}
 ): Promise<string> => {
-  console.log('Gemini rephraseText called with:', { originalText: originalText.substring(0, 50) + '...', options });
   
   if (!originalText.trim()) {
     throw new Error('Text cannot be empty');
@@ -39,7 +35,6 @@ export const rephraseText = async (
   
   for (const modelName of modelNames) {
     try {
-      console.log(`Trying to rephrase with model: ${modelName}`);
       
       const model = genAI.getGenerativeModel({ 
         model: modelName,
@@ -50,7 +45,6 @@ export const rephraseText = async (
           maxOutputTokens: 200,
         },
       });
-      console.log('Using model with config:', model);
 
       const prompt = `Please rephrase the following text to make it more ${tone} and ${style}. 
       The text is about someone's dream life vision, so keep it personal and meaningful.
@@ -73,7 +67,6 @@ export const rephraseText = async (
         continue; // Try next model
       }
 
-      console.log(`✅ Successfully rephrased with model: ${modelName}`);
       return rephrasedText;
       
     } catch (error: any) {
@@ -130,7 +123,6 @@ export const getSuggestions = async (questionContext: string): Promise<string[]>
   
   for (const modelName of modelNames) {
     try {
-      console.log(`Trying to get suggestions with model: ${modelName}`);
       
       const model = genAI.getGenerativeModel({ 
         model: modelName,
@@ -168,7 +160,6 @@ export const getSuggestions = async (questionContext: string): Promise<string[]>
       }
 
       const suggestions = responseText.split('\n').filter((line: string) => line.trim()).slice(0, 3);
-      console.log(`✅ Successfully got suggestions with model: ${modelName}`);
       return suggestions;
       
     } catch (error: any) {

@@ -17,6 +17,7 @@
     "framer-motion": "^12.23.12",
     "googleapis": "^160.0.0",
     "keen-slider": "^6.8.6",
+    "lottie-react": "^2.4.1",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

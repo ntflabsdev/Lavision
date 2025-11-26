@@ -3,7 +3,18 @@ import { Provider } from 'react-redux';
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { store } from './store';
 import Layout from './layouts/Layout';
-import { HomeScreen, QuestionnaireScreen, ResultsScreen, VisionRealizedScreen, DashboardScreen } from './screens';
+import { 
+  HomeScreen, 
+  QuestionnaireScreen, 
+  ResultsScreen, 
+  VisionRealizedScreen, 
+  DashboardScreen,
+  InnerPortalScreen,
+  OutsideHomeHubScreen,
+  WelcomeHomeScreen,
+  OneSentenceScreen,
+  DreamCarScreen
+} from './screens';
 import { LoginScreen, RegisterScreen, ForgotPasswordScreen } from './screens/auth';
 import Aboutus from './screens/Aboutus';
 import PricingPage from './screens/PricingPage';
@@ -32,6 +43,15 @@ function App() {
             <Route path="/" element={<HomeScreen />} />
             <Route path="/register" element={<RegisterScreen />} />
             <Route path="/forgot-password" element={<ForgotPasswordScreen />} />
+            
+            {/* New Journey Screens */}
+            <Route path="/one-sentence" element={<OneSentenceScreen />} />
+            <Route path="/welcome-home" element={<WelcomeHomeScreen />} />
+            <Route path="/inner-portal" element={<InnerPortalScreen />} />
+            <Route path="/dream-worlds" element={<OutsideHomeHubScreen />} />
+            <Route path="/outside-home-hub" element={<OutsideHomeHubScreen />} />
+            <Route path="/dream-car" element={<DreamCarScreen />} />
+            
             <Route element={<Layout />}>
               <Route path="/login" element={<LoginScreen />} />
               <Route path="/questionnaire" element={<QuestionnaireScreen />} />

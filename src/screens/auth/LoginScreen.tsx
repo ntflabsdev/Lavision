@@ -30,25 +30,25 @@ const LoginScreen: React.FC = () => {
         e.preventDefault();
         setIsLoading(true);
         setError('');
+        navigate('/one-sentence');
+        // try {
+        //     const res = await loginMutation({
+        //         email: formData.email,
+        //         password: formData.password,
+        //     }).unwrap();
 
-        try {
-            const res = await loginMutation({
-                email: formData.email,
-                password: formData.password,
-            }).unwrap();
-
-            if (res.success) {
-                localStorage.setItem('token', res.data.token);
-                dispatch(dreamLifeApi.util.invalidateTags(['Auth']));
-                navigate('/dashboard');
-            } else {
-                setError('Invalid email or password');
-            }
-        } catch (err: any) {
-            setError(err?.data?.message || 'An error occurred during login');
-        } finally {
-            setIsLoading(false);
-        }
+        //     if (res.success) {
+        //         localStorage.setItem('token', res.data.token);
+        //         dispatch(dreamLifeApi.util.invalidateTags(['Auth']));
+        //         navigate('/dashboard');
+        //     } else {
+        //         setError('Invalid email or password');
+        //     }
+        // } catch (err: any) {
+        //     setError(err?.data?.message || 'An error occurred during login');
+        // } finally {
+        //     setIsLoading(false);
+        // }
     };
 
     const handleSocial = async (provider: 'google' | 'apple') => {

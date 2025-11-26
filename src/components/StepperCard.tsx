@@ -12,96 +12,62 @@ import RephraseTooltip from './gemini/RephraseTooltip';
 
 const questionGroups = [
   {
-    title: 'Identity & Vision',
+    title: 'Dream Life Essentials',
     questions: [
-      { label: 'What is your name and who are you when you have achieved everything in life?', key: 'name', placeholder: 'Write your answer here...' },
-      { label: 'If you could describe your dream life in one sentence, what would it be?', key: 'dream_sentence', placeholder: 'Write your answer here...' },
-      { label: 'Which core values guide you most? (e.g., freedom, love, power, creativity)', key: 'core_values', placeholder: 'Write your answer here...' },
+      { 
+        label: 'When you wake up in your dream life, what’s the first thing you see?', 
+        key: 'first_thing_you_see', 
+        placeholder: 'Write your answer here...' 
+      },
+      { 
+        label: 'As you walk through your dream home, what feeling fills your body?', 
+        key: 'home_feeling_body', 
+        placeholder: 'Write your answer here...' 
+      },
+      { 
+        label: 'Where in the world do you feel “this is where I belong”?', 
+        key: 'belong_location', 
+        placeholder: 'Write your answer here...' 
+      },
+      { 
+        label: 'If one moment of your future could be filmed forever — which moment is it?', 
+        key: 'filmed_moment', 
+        placeholder: 'Write your answer here...' 
+      },
+      { 
+        label: 'Describe your perfect day from morning to night.', 
+        key: 'perfect_day', 
+        placeholder: 'Write your answer here...' 
+      },
+      { 
+        label: 'What energy do you want people to feel when you enter a room?', 
+        key: 'energy_enter_room', 
+        placeholder: 'Write your answer here...' 
+      },
+      { 
+        label: 'What detail in your dream home makes it feel truly yours?', 
+        key: 'dream_home_detail', 
+        placeholder: 'Write your answer here...' 
+      },
+      { 
+        label: 'How does your ideal workspace look and feel?', 
+        key: 'ideal_workspace', 
+        placeholder: 'Write your answer here...' 
+      },
+      { 
+        label: 'What daily habits keep you at your strongest?', 
+        key: 'strongest_habits', 
+        placeholder: 'Write your answer here...' 
+      },
+      { 
+        label: 'If one sentence guided your entire life — what is it?', 
+        key: 'life_sentence', 
+        placeholder: 'Write your answer here...' 
+      },
     ],
-  },
-  {
-    title: 'Home & Environment',
-    questions: [
-      { label: 'Where do you live in your dream life? (city, beach, mountains, private island, penthouse, villa)', key: 'dream_location', placeholder: 'Write your answer here...' },
-      { label: 'How does your dream home look inside and outside?', key: 'home_look', placeholder: 'Write your answer here...' },
-      { label: 'What small details in your home make you feel “this is truly mine”?', key: 'home_details', placeholder: 'Write your answer here...' },
-      { label: `What feelings does the house give off? Luxury, futuristic, vintage, warmth, minimalism?`, key: 'home_feelings', placeholder: 'Write your answer here...' },
-    ],
-  },
-  {
-    title: 'Body & Health',
-    questions: [
-      { label: 'What does your ideal body look and feel like?', key: 'body_look', placeholder: 'Write your answer here...' },
-      { label: 'How do you feel physically in your dream life? (strong, light, energized, relaxed)', key: 'body_feel', placeholder: 'Write your answer here...' },
-      { label: 'What daily health or fitness habits are part of your life?', key: 'health_habits', placeholder: 'Write your answer here...' },
-    ],
-  },
-  {
-    title: 'Daily Lifestyle',
-    questions: [
-      { label: 'How does your perfect day unfold from morning to night?', key: 'perfect_day', placeholder: 'Write your answer here...' },
-      { label: 'What habits or rituals keep you at your best?', key: 'habits_rituals', placeholder: 'Write your answer here...' },
-      { label: 'How do you usually spend your weekends?', key: 'weekends', placeholder: 'Write your answer here...' },
-    ],
-  },
-  {
-    title: 'Career & Purpose',
-    questions: [
-      { label: 'What work or mission brings you the most fulfillment?', key: 'fulfillment', placeholder: 'Write your answer here...' },
-      { label: 'How does your dream workday look? (people, environment, technology)', key: 'workday', placeholder: 'Write your answer here...' },
-      { label: 'What kind of impact does your work have on the world?', key: 'work_impact', placeholder: 'Write your answer here...' },
-    ],
-  },
-  {
-    title: 'Relationships',
-    questions: [
-      { label: 'Who are the key people in your dream life? (partner, friends, family, colleagues)', key: 'key_people', placeholder: 'Write your answer here...' },
-      { label: 'How does your ideal romantic relationship feel and look?', key: 'romantic_relationship', placeholder: 'Write your answer here...' },
-      { label: 'How do you feel within your social circle?', key: 'social_circle', placeholder: 'Write your answer here...' },
-    ],
-  },
-  {
-    title: 'Experiences & Freedom',
-    questions: [
-      { label: 'What kinds of adventures and experiences do you enjoy regularly?', key: 'adventures', placeholder: 'Write your answer here...' },
-      { label: 'Where and how do you travel for vacations?', key: 'travel', placeholder: 'Write your answer here...' },
-      { label: 'What’s one recurring moment you dream of experiencing again and again?', key: 'recurring_moment', placeholder: 'Write your answer here...' },
-    ],
-  },
-  {
-    title: 'Money & Abundance',
-    questions: [
-      { label: 'What does your financial reality look like?', key: 'financial_reality', placeholder: 'Write your answer here...' },
-      { label: 'What assets or luxuries do you own? (homes, cars, businesses)', key: 'assets', placeholder: 'Write your answer here...' },
-      { label: 'How do you use money both for enjoyment and for making an impact?', key: 'money_use', placeholder: 'Write your answer here...' },
-    ],
-  },
-  {
-    title: 'Mental State',
-    questions: [
-      { label: 'How do you feel in your dream life? (peaceful, passionate, powerful, free)', key: 'dream_feel', placeholder: 'Write your answer here...' },
-      { label: 'What is your dominant state of mind each day? (flow, creativity, confidence, inspiration)', key: 'state_of_mind', placeholder: 'Write your answer here...' },
-      { label: 'What thoughts fill your mind when you wake up in the morning?', key: 'morning_thoughts', placeholder: 'Write your answer here...' },
-    ],
-  },
-  {
-    title: 'Legacy & Big Goals',
-    questions: [
-      { label: 'What do you want to leave behind for the world?', key: 'legacy', placeholder: 'Write your answer here...' },
-      { label: 'How would you like people to remember you?', key: 'remembered', placeholder: 'Write your answer here...' },
-      { label: 'What is the “big contribution” you dream of making to humanity?', key: 'big_contribution', placeholder: 'Write your answer here...' },
-    ],
-  },
-  {
-    title: 'Bonus – Visual & Detail Questions',
-    questions: [
-      { label: 'Which colors best represent your dream life?', key: 'colors', placeholder: 'Write your answer here...' },
-      { label: 'What kind of music or background sounds fill your world?', key: 'music', placeholder: 'Write your answer here...' },
-      { label: 'What objects, symbols, or items are always with you? (e.g., car, book, necklace, trophy, artwork)', key: 'objects', placeholder: 'Write your answer here...' },
-      { label: 'If you could step into one moment of your dream life right now what’s the very first thing you see?', key: 'first_moment', placeholder: 'Write your answer here...' },
-    ],
-  },
+  }
 ];
+
 
 
 const StepperCard = () => {
@@ -259,18 +225,18 @@ const StepperCard = () => {
 
       {/* Question */}
       <div className="mb-10">
-        <h2 className="text-2xl md:text-3xl font-semibold text-white leading-relaxed mb-10 px-4">
+        <p className="text-l md:text-3xl font-semibold text-white leading-relaxed mb-10 px-4">
           {currentQuestion.label}
-        </h2>
+        </p>
         
         <div className="relative">
           <textarea
             ref={(el) => (textareaRefs.current[currentQuestion.key] = el)}
             id={currentQuestion.key}
-            className="w-full rounded-xl bg-[#1F1833]/80 border border-white/5 text-white text-base px-5 py-4 pr-12 focus:outline-none focus:ring-2 focus:ring-[#8866FF]/50 focus:border-transparent placeholder-gray-500 transition-all duration-200 resize-none min-h-[140px]"
+            className="w-full rounded-xl bg-[#1F1833]/80 border border-white/5 text-white text-base px-5 py-4 focus:outline-none focus:ring-2 focus:ring-[#8866FF]/50 focus:border-transparent placeholder-gray-500 transition-all duration-200 resize-none "
             placeholder={currentQuestion.placeholder || 'Write your answer here...'}
             value={answers[currentQuestion.key] || ''}
-            rows={5}
+            rows={3}
             onChange={e => handleChange(currentQuestion.key, e.target.value)}
           />
           {/* Rephrase button - show only when there's text */}

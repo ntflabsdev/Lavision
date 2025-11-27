@@ -2,6 +2,7 @@ import { Check } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PayPalBtn from "../subscription/PayPalBtn.tsx";
+import GradientButton from '../GradientButton';
 import { 
     useAddTransactionMutation, 
     useAddUserSubscriptionMutation 
@@ -51,9 +52,10 @@ const PricingCard: React.FC<PricingCardProps> = ({
     };
 
     const handlePaidPlan = () => {
+           navigate('/welcome-home');
         if (!isAuthenticated) {
             setPendingPayment(true);
-            navigate('/register');
+         
             return;
         }
 
@@ -115,8 +117,8 @@ const PricingCard: React.FC<PricingCardProps> = ({
     return (
         <>
             <div
-                className={`h-[580px] w-[340px] rounded-2xl p-8 text-white relative transition-all duration-300 flex flex-col ${
-                    featured ? 'ring-2 ring-cyan-400/50' : ''
+                className={`h-[510px] w-[310px] rounded-2xl p-5 text-white relative transition-all duration-300 flex flex-col ${
+                    featured ? '' : ''
                 }`}
                 style={{
                     background: 'rgba(42, 31, 61, 0.8)',
@@ -129,35 +131,36 @@ const PricingCard: React.FC<PricingCardProps> = ({
                 }}
             >
             {/* Header Section */}
-            <div className="text-center mb-8">
+            <div className="text-center mb-5">
                 <h3 className="text-2xl font-semibold mb-6 text-white">{name}</h3>
-                <div className="flex items-start justify-center mb-2">
-                    <span className="text-5xl font-bold text-white">$ {price}</span>
-                    <span className="text-lg text-gray-400 mt-2 ml-1">/Month</span>
+                <div className="flex items-start justify-center mb-1">
+                    <span className="text-4xl font-bold text-white">$ {price}</span>
+                    <span className="text-base text-gray-400 mt-1.5 ml-1">/Month</span>
                 </div>
             </div>
             
             {/* Features Section - Flexible height */}
-            <div className="flex-1 mb-6">
+            <div className="flex-1 mb-3">
                 <div className="space-y-4 h-full">
                     {features.map((feature, featureIndex) => (
                         <div key={featureIndex} className="flex items-start">
                             <Check className="w-5 h-5 mr-3 mt-0.5 flex-shrink-0 text-white" />
-                            <span className="text-base text-white leading-relaxed">{feature}</span>
+                            <span className="text-sm text-white leading-relaxed">{feature}</span>
                         </div>
                     ))}
                 </div>
             </div>
             
             {/* Button Section - Fixed height */}
-            <div className="h-[60px] flex flex-col justify-center">
+                        <div className="h-[52px] flex flex-col justify-center">
                 {planType === 'free' ? (
-                    <button
-                        className="w-full h-14 px-6 rounded-xl text-base font-semibold text-white transition-all duration-200 bg-gradient-to-r from-[#8B5CF6] to-[#A78BFA] hover:shadow-lg hover:shadow-purple-500/30 hover:scale-[1.02] flex items-center justify-center"
-                        onClick={handleFreePlan}
+                    <GradientButton
+                      onClick={handleFreePlan}
+                      size='md'
+                                            className='w-full h-11 !rounded-xl font-semibold'
                     >
-                        {buttonText}
-                    </button>
+                      {buttonText}
+                    </GradientButton>
                 ) : showPayPal ? (
                     <div className="w-full">
                         <PayPalBtn
@@ -168,16 +171,15 @@ const PricingCard: React.FC<PricingCardProps> = ({
                         />
                     </div>
                 ) : (
-                    <button
-                        className={`w-full h-14 px-6 rounded-xl text-base font-semibold text-white transition-all duration-200 flex items-center justify-center ${
-                            featured 
-                                ? 'bg-gradient-to-r from-[#00AAFF] to-[#CC66FF] hover:shadow-lg hover:shadow-cyan-500/40 hover:scale-[1.02]'
-                                : 'bg-gradient-to-r from-[#8B5CF6] to-[#A78BFA] hover:shadow-lg hover:shadow-purple-500/30 hover:scale-[1.02]'
-                        }`}
-                        onClick={handlePaidPlan}
-                    >
-                        {buttonText}
-                    </button>
+                                        <GradientButton
+                                            onClick={handlePaidPlan}
+                                            size='md'
+                                            className={`w-full h-11 !rounded-xl font-semibold transition-all ${featured 
+                                                ? 'shadow-cyan-500/40 hover:brightness-110'
+                                                : 'opacity-80 backdrop-blur-sm bg-[linear-gradient(90deg,rgba(0,170,255,0.2)_0%,rgba(204,102,255,0.2)_100%)] hover:bg-[linear-gradient(90deg,#00AAFF_0%,#CC66FF_100%)] hover:opacity-100 hover:shadow-lg hover:shadow-purple-500/30 hover:brightness-110'} `}
+                                        >
+                                            {buttonText}
+                                        </GradientButton>
                 )}
             </div>
         </div>

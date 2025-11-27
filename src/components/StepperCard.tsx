@@ -143,7 +143,7 @@ const StepperCard = () => {
       setCurrentQuestionIndex(0);
       dispatch(setCurrentStep(nextStep));
     } else {
-      // Last question completed, save all answers and complete questionnaire
+      // Last question completed, save all answers and move to payments
       if (currentUserId) {
         try {
           // First save all the questionnaire data
@@ -158,7 +158,7 @@ const StepperCard = () => {
           return; // Don't navigate if save failed
         }
       }
-      navigate('/results');
+      navigate('/pricing');
     }
   };
 

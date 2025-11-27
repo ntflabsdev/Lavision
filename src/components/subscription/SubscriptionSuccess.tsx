@@ -39,9 +39,9 @@ const SubscriptionSuccess: React.FC = () => {
           console.error('Error verifying subscription:', subscriptionError);
           setMessage('Subscription completed! Welcome to your new plan.');
           setIsProcessing(false);
-          // Still redirect to dashboard after error - subscription might be valid
+          // Still redirect to Welcome Home after error
           setTimeout(() => {
-            navigate('/dashboard');
+            navigate('/welcome-home');
           }, 3000);
           return;
         }
@@ -62,9 +62,9 @@ const SubscriptionSuccess: React.FC = () => {
 
         setIsProcessing(false);
 
-        // Redirect to dashboard after 3 seconds
+        // Redirect to Welcome Home after 3 seconds
         setTimeout(() => {
-          navigate('/dashboard');
+          navigate('/welcome-home');
         }, 3000);
 
       } catch (error) {
@@ -129,10 +129,10 @@ const SubscriptionSuccess: React.FC = () => {
           )}
 
           <button
-            onClick={() => navigate('/dashboard')}
+            onClick={() => navigate('/welcome-home')}
             className="mt-6 w-full bg-gradient-to-r from-[#A460ED] to-[#F07DEA] hover:from-[#9855E8] hover:to-[#E86FE3] text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
           >
-            Go to Dashboard
+            Continue to Welcome Home
           </button>
         </div>
       </div>

@@ -18,7 +18,7 @@ const Hero = () => {
   const videos = [welcomeVideo1, welcomeVideo2, welcomeVideo3, welcomeVideo4, welcomeVideo5, welcomeVideo6];
 
   const handleStartCreating = () => {
-    navigate('/questionnaire');
+    navigate('/login');
   };
 
   const handleVideoEnd = () => {

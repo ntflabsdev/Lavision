@@ -85,27 +85,26 @@ const PricingHero = () => {
 
   return (
     <section
-      className="min-h-screen items-center justify-center px-4 sm:px-6 pt-16 sm:pt-20 flex flex-col"
+      className="min-h-screen overflow-hidden items-center justify-center px-4 sm:px-6 pt-8 sm:pt-10 flex flex-col"
       style={{
         background: `linear-gradient(90deg, #05051F 16.76%, #9F5EB0 140.63%), linear-gradient(122.01deg, #0A0B10 0%, #1A1339 50%, #402659 100%)`
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <p className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 text-white">
+          <p className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-white">
             Choose Your <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Journey</span>
           </p>
-          <p className="text-lg sm:text-xl md:text-2xl text-[#CACACA] max-w-3xl mx-auto mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-[#CACACA] max-w-3xl mx-auto mb-6">
             Select The Plan That Aligns With Your Vision
           </p>
         </div>
       </div>
 
-      <section className="py-12 sm:py-16 md:py-20 w-full">
+      <section className="py-6 sm:py-8 md:py-10 w-full">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-
           <div className="md:hidden">
-            <div ref={sliderRef} className="keen-slider pb-4">
+            <div ref={sliderRef} className="keen-slider pb-0">
               {plans.map((plan, index) => (
                 <div
                   key={index}
@@ -137,35 +136,35 @@ const PricingHero = () => {
             </div>
           </div>
 
-          <div className="hidden md:flex md:items-center md:justify-center md:gap-6 lg:gap-8 relative">
-            {plans.map((plan, index) => (
-              <div
-                key={index}
-                onClick={() => setSelectedIndex(index)}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                style={{ cursor: 'pointer' }}
-                className={`transition-all duration-300 ease-in-out relative ${index === 1
-                    ? 'md:-translate-y-8 lg:-translate-y-12 md:z-10'
-                    : 'md:translate-y-4 lg:translate-y-6'
-                  } ${selectedIndex === index || hoveredIndex === index
-                    ? 'transform scale-105 z-20'
-                    : ''
-                  }`}
-              >
-                <PricingCard
-                  name={plan.name}
-                  price={plan.price}
-                  icon={plan.icon}
-                  features={plan.features}
-                  buttonText={plan.buttonText}
-                  planType={plan.planType}
-                  priceValue={plan.priceValue}
-                  planId={plan.planId}
-                />
-              </div>
-            ))}
-          </div>
+            <div className="hidden md:grid md:grid-cols-3 md:gap-5 lg:gap-6 relative items-start">
+              {plans.map((plan, index) => (
+                <div
+                  key={index}
+                  onClick={() => setSelectedIndex(index)}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  style={{
+                    cursor: 'pointer',
+                    transform: (selectedIndex === index || hoveredIndex === index)
+                      ? (plan.featured ? 'scale(1.07)' : 'scale(0.96)')
+                      : (plan.featured ? 'scale(1.05)' : 'scale(0.9)')
+                  }}
+                  className={`transition-all duration-300 ease-in-out relative ${plan.featured ? 'md:shadow-xl' : ''}`}
+                >
+                  <PricingCard
+                    name={plan.name}
+                    price={plan.price}
+                    icon={plan.icon}
+                    features={plan.features}
+                    buttonText={plan.buttonText}
+                    planType={plan.planType}
+                    priceValue={plan.priceValue}
+                    planId={plan.planId}
+                    featured={plan.featured}
+                  />
+                </div>
+              ))}
+            </div>
         </div>
       </section>
     </section>

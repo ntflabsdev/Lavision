@@ -12,7 +12,6 @@ import {
   InnerPortalScreen,
   OutsideHomeHubScreen,
   WelcomeHomeScreen,
-  OneSentenceScreen,
   DreamCarScreen
 } from './screens';
 import { LoginScreen, RegisterScreen, ForgotPasswordScreen } from './screens/auth';
@@ -41,24 +40,24 @@ function App() {
           <Fab />
           <Routes>
             <Route path="/" element={<HomeScreen />} />
+            <Route path="/getstart" element={<HomeScreen />} />
             <Route path="/register" element={<RegisterScreen />} />
             <Route path="/forgot-password" element={<ForgotPasswordScreen />} />
             
             {/* New Journey Screens */}
-            <Route path="/one-sentence" element={<OneSentenceScreen />} />
             <Route path="/welcome-home" element={<WelcomeHomeScreen />} />
             <Route path="/inner-portal" element={<InnerPortalScreen />} />
             <Route path="/dream-worlds" element={<OutsideHomeHubScreen />} />
             <Route path="/outside-home-hub" element={<OutsideHomeHubScreen />} />
             <Route path="/dream-car" element={<DreamCarScreen />} />
-            
+             <Route path='/pricing' element={<PricingPage />} />
+
             <Route element={<Layout />}>
               <Route path="/login" element={<LoginScreen />} />
               <Route path="/questionnaire" element={<QuestionnaireScreen />} />
               <Route path="/results" element={<ResultsScreen />} />
               <Route path="/vision-realized" element={<VisionRealizedScreen />} />
               <Route path="/aboutus" element={<Aboutus />} />
-              <Route path='/pricing' element={<PricingPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/subscription/success" element={<SubscriptionSuccess />} />
               <Route path="/subscription/cancel" element={<SubscriptionCancel />} />

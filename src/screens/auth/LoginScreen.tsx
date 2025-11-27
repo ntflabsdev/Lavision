@@ -30,7 +30,7 @@ const LoginScreen: React.FC = () => {
         e.preventDefault();
         setIsLoading(true);
         setError('');
-        navigate('/one-sentence');
+        navigate('/questionnaire');
         // try {
         //     const res = await loginMutation({
         //         email: formData.email,

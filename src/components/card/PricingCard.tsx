@@ -24,7 +24,6 @@ interface PricingCardProps {
 const PricingCard: React.FC<PricingCardProps> = ({
     name,
     price,
-    icon,
     features,
     buttonText,
     planType = 'free',

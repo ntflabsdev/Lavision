@@ -5,6 +5,7 @@ import { useAppDispatch } from '../../store/hooks';
 import { dreamLifeApi } from '../../store/api';
 import { signInWithGooglePopup, signInWithApplePopup } from '../../config/firebase';
 import GradientButton from '../../components/GradientButton';
+import AnimatedBackground from '../../components/AnimatedBackground';
 
 const RegisterScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -30,25 +31,26 @@ const RegisterScreen: React.FC = () => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
+   navigate('/questionnaire');
 
-    try {
-      const res = await registerMutation({
-        email: formData.email,
-        password: formData.password,
-      }).unwrap();
+    // try {
+    //   const res = await registerMutation({
+    //     email: formData.email,
+    //     password: formData.password,
+    //   }).unwrap();
       
-      if (res.success) {
-        localStorage.setItem('token', res.data.token);
-        dispatch(dreamLifeApi.util.invalidateTags(['Auth']));
-        navigate('/dashboard');
-      } else {
-        setError('Registration failed. Please try again.');
-      }
-    } catch (err: any) {
-      setError(err?.data?.message || 'An error occurred during registration');
-    } finally {
-      setIsLoading(false);
-    }
+    //   if (res.success) {
+    //     localStorage.setItem('token', res.data.token);
+    //     dispatch(dreamLifeApi.util.invalidateTags(['Auth']));
+    //     navigate('/dashboard');
+    //   } else {
+    //     setError('Registration failed. Please try again.');
+    //   }
+    // } catch (err: any) {
+    //   setError(err?.data?.message || 'An error occurred during registration');
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   const handleSocial = async (provider: 'google' | 'apple') => {
@@ -79,16 +81,12 @@ const RegisterScreen: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4"
-      style={{
-        background: `radial-gradient(circle at top, rgba(159, 94, 176, 0.3), transparent 50%), 
-                     radial-gradient(circle at bottom left, rgba(94, 94, 176, 0.3), transparent 50%),
-                     linear-gradient(135deg, #0A0B10 0%, #1A1339 50%, #402659 100%)`
-      }}>
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <AnimatedBackground />
       
       {/* Auth Card */}
       <div className="w-full max-w-md">
-        <div className="backdrop-blur-xl bg-black/40 rounded-3xl border border-white/10 p-8 shadow-2xl">
+        <div className="bg-[#1C1C2D] rounded-2xl p-8">
           
           {/* Header */}
           <div className="text-center mb-8">
@@ -108,7 +106,7 @@ const RegisterScreen: React.FC = () => {
               type="button"
               onClick={() => handleSocial('google')}
               disabled={socialLoading !== null}
-              className="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-gray-800 rounded-lg py-3 font-medium transition disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg py-3 font-medium transition disabled:opacity-50"
             >
               {socialLoading === 'google' ? (
                 <div className="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
@@ -122,7 +120,7 @@ const RegisterScreen: React.FC = () => {
               type="button"
               onClick={() => handleSocial('apple')}
               disabled={socialLoading !== null}
-              className="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-gray-800 rounded-lg py-3 font-medium transition disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg py-3 font-medium transition disabled:opacity-50"
             >
               {socialLoading === 'apple' ? (
                 <div className="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>

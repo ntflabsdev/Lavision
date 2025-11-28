@@ -50,11 +50,11 @@ function App() {
             <Route path="/dream-worlds" element={<OutsideHomeHubScreen />} />
             <Route path="/outside-home-hub" element={<OutsideHomeHubScreen />} />
             <Route path="/dream-car" element={<DreamCarScreen />} />
-             <Route path='/pricing' element={<PricingPage />} />
+            <Route path='/pricing' element={<PricingPage />} />
+            <Route path="/questionnaire" element={<QuestionnaireScreen />} />
 
             <Route element={<Layout />}>
               <Route path="/login" element={<LoginScreen />} />
-              <Route path="/questionnaire" element={<QuestionnaireScreen />} />
               <Route path="/results" element={<ResultsScreen />} />
               <Route path="/vision-realized" element={<VisionRealizedScreen />} />
               <Route path="/aboutus" element={<Aboutus />} />

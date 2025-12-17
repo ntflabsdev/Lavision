@@ -29,20 +29,8 @@ const WelcomeHomeScreen = () => {
       {/* Content */}
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4">
         <div className="text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-2xl">
-            Welcome Home
-          </h1>
-          <p className="text-xl md:text-2xl text-white/90 mb-12 drop-shadow-lg">
-            Is Where Your Journey Begins
-          </p>
+         
 
-          <button
-            onClick={handleEnter}
-            disabled={isEntering}
-            className="group relative px-16 py-3 bg-gradient-to-r from-[#3B82F6] via-[#8B5CF6] to-[#A855F7] text-white text-xl font-semibold rounded-lg shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed flex items-center gap-3 mx-auto"
-          >
-            {isEntering ? 'Entering...' : 'Enter'}
-          </button>
         </div>
       </div>
 

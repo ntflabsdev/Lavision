@@ -1,8 +1,6 @@
 import { ReactNode } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import Header from '../components/header/Header';
 import Footer from '../components/header/Footer';
-import Fab from '../components/fab/Fab';
 
 interface LayoutProps {
   children?: ReactNode;
@@ -10,16 +8,26 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   const location = useLocation();
-  const fabHiddenPaths = ['/login', '/register', '/forgot-password'];
+
+  // Auth landing (login/register) par footer hide karna hai
+  const isAuthPage =
+    typeof window !== 'undefined' &&
+    ((window as any).__isAuthPage ||
+      location.pathname === '/login' ||
+      location.pathname === '/register');
+
+  // Register page (signup) ke liye footer hide karna hai
+  const isRegisterPage =
+    typeof window !== 'undefined' &&
+    location.pathname === '/' &&
+    (window as any).__isRegisterPage;
 
   return (
     <div className="min-h-screen">
-      <Header />
       <main>
         {children || <Outlet />}
       </main>
-      {!fabHiddenPaths.includes(location.pathname) && <Fab />}
-      <Footer />
+      {!isAuthPage && !isRegisterPage && <Footer />}
     </div>
   );
 };

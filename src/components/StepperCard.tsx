@@ -158,7 +158,7 @@ const StepperCard = () => {
           return; // Don't navigate if save failed
         }
       }
-      navigate('/pricing');
+      navigate('/welcome-home');
     }
   };
 
@@ -209,10 +209,10 @@ const StepperCard = () => {
       {/* Progress Section */}
       <div className="mb-12">
         <div className="flex justify-between items-center mb-3">
-          <p className="text-white text-base font-normal">Step {completedQuestions + 1} of {totalQuestions}</p>
-          <div className="text-right">
-            <p className="text-white text-2xl font-semibold">{progressPercentage}%</p>
-            <p className="text-gray-400 text-xs">complete</p>
+          <p className="text-white text-[22px] font-normal">Step {completedQuestions + 1} of {totalQuestions}</p>
+          <div className="flex items-center gap-2">
+            <p className="text-white text-[22px] font-normal">{progressPercentage}%</p>
+            <p className="text-white text-[22px] font-normal">complete</p>
           </div>
         </div>
         <div className="w-full bg-white/10 rounded-full h-4 overflow-hidden">
@@ -225,7 +225,7 @@ const StepperCard = () => {
 
       {/* Question */}
       <div className="mb-10">
-        <p className="text-l md:text-3xl font-semibold text-white leading-relaxed mb-10 px-4">
+        <p className="text-[26px] text-left font-semibold text-white leading-relaxed mb-10 px-4">
           {currentQuestion.label}
         </p>
         

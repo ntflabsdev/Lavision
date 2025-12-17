@@ -1,30 +1,47 @@
-import React from 'react';
-import orb1 from '../assets/orb1.png';
-import orb2 from '../assets/orb2.png';
-import orb3 from '../assets/orb3.png';
 import orb4 from '../assets/orb4.png';
+import orb5 from '../assets/orb5.png';
 
 const images = [
-  { src: orb1, className: 'top-0 left-0 -translate-x-1/3 -translate-y-1/3 animate-orb1' },
-  { src: orb2, className: 'top-0 right-0 translate-x-1/3 -translate-y-1/3 animate-orb2' },
-  { src: orb3, className: 'bottom-0 left-0 -translate-x-1/3 translate-y-1/3 animate-orb3' },
-  { src: orb4, className: 'bottom-0 right-0 translate-x-1/3 translate-y-1/3 animate-orb4' },
+  // Top-centerish glow
+  {
+    src: orb5,
+    positionClass: 'absolute top-[40%] left-[10%] -translate-x-1/2 -translate-y-1/4',
+    sizeClass: 'w-[986px] h-[992px]',
+    animationClass: 'animate-orbit',
+  },
+  // Right side glow
+  {
+    src: orb5,
+    positionClass: 'absolute top-[-23%] right-[-29%]',
+    sizeClass: 'w-[1000px] h-[1000px]',
+    animationClass: 'animate-orbit-delayed',
+  },
+  // Left middle / bottom glow
+  {
+    src: orb4,
+    positionClass: 'absolute bottom-[73%] left-[20%]',
+    sizeClass: 'w-[350px] h-[350px]',
+    animationClass: 'animate-orbit-delayed-2',
+  },
 ];
 
 const AnimatedBackground = () => {
   return (
-    <div className="fixed inset-0 overflow-hidden z-[-1] bg-[#130B28]">
-      {/* Gradient layer */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-purple-700/40 via-purple-900 to-blue-900/30"></div>
-
+    <div className="fixed inset-0 overflow-hidden z-[-1] bg-[#050515]">
       {/* Orbs */}
       {images.map((img, index) => (
-        <img
+        <div
           key={index}
-          src={img.src}
-          className={`absolute w-[550px] opacity-[0.65] blur-sm ${img.className}`}
-          alt=""
-        />
+          className={`${img.positionClass} pointer-events-none`}
+        >
+          <div className={img.animationClass}>
+            <img
+              src={img.src}
+              className={`${img.sizeClass} blur-[6px] opacity-80`}
+              alt=""
+            />
+          </div>
+        </div>
       ))}
     </div>
   );

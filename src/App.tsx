@@ -60,8 +60,9 @@ const FabRouteWrapper = () => {
     }
   }, [location.pathname]);
 
-  // Check if current route is pricing
+  // Check if current route is pricing or welcome-home
   const isPricingRoute = location.pathname === '/pricing' || location.pathname.startsWith('/pricing/');
+  const isWelcomeHomeRoute = location.pathname === '/welcome-home' || location.pathname.startsWith('/welcome-home/');
   
   // Routes where FAB should NOT show even after pricing
   const isExcludedRoute = 
@@ -72,8 +73,8 @@ const FabRouteWrapper = () => {
     location.pathname.startsWith('/questionnaire') ||
     location.pathname.startsWith('/forgot-password');
 
-  // Show FAB if: (pricing route) OR (pricing has been visited AND route is not excluded)
-  const shouldShowFab = isPricingRoute || (hasVisitedPricing && !isExcludedRoute);
+  // Show FAB if: (welcome-home route) OR (pricing route) OR (pricing has been visited AND route is not excluded)
+  const shouldShowFab = isWelcomeHomeRoute || isPricingRoute || (hasVisitedPricing && !isExcludedRoute);
 
   return shouldShowFab ? <Fab /> : null;
 };

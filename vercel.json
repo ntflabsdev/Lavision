@@ -1,0 +1,11 @@
+{
+  // Redirect all routes to the SPA entry so client-side routing works
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
+}
+
+

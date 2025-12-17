@@ -210,7 +210,7 @@ const MoveToCar = () => {
 </> : 
 screen == 3 ?
  <>
-        <div className="absolute bottom-0 left-[20px]">
+        <div className="absolute bottom-0 left-[20px] flex flex-col gap-[20px] pb-[40px]">
      <img src={homeIcon} alt="home logo" className="cursor-pointer" onClick={GoToHome}/>
        <img src={officeIcon} alt="office logo" className="cursor-pointer" onClick={GoToOffice}/>
     </div>

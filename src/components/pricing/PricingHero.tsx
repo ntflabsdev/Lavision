@@ -10,7 +10,7 @@ const plans = [
   {
     name: 'Starter',
     subtitle: '',
-    price: '29',
+    price: '49',
     icon: <LazyLoadImage effect="blur" src={Map} alt="Map" className="w-10 h-10 sm:w-14 sm:h-14" />,
     features: [
       'Dream Home Visualization',
@@ -21,13 +21,13 @@ const plans = [
     ],
     buttonText: 'Begin Journey',
     planType: 'paid' as const,
-    priceValue: '29',
+    priceValue: '49',
     planId: 'starter-plan',
   },
   {
     name: 'Vision',
     subtitle: '',
-    price: '79',
+    price: '69',
     icon: <LazyLoadImage effect="blur" src={Brain} alt="Brain" className="w-10 h-10 sm:w-14 sm:h-14" />,
     features: [
       'All Starter Features',
@@ -39,14 +39,14 @@ const plans = [
     ],
     buttonText: 'Begin Journey',
     planType: 'paid' as const,
-    priceValue: '79',
+    priceValue: '69',
     planId: 'vision-plan',
     featured: true,
   },
   {
     name: 'Master',
     subtitle: '',
-    price: '199',
+    price: '95',
     icon: <LazyLoadImage effect="blur" src={DollarSign} alt="Dollar" className="w-10 h-10 sm:w-14 sm:h-14" />,
     features: [
       'All Vision Features',
@@ -57,7 +57,7 @@ const plans = [
     ],
     buttonText: 'Begin Journey',
     planType: 'paid' as const,
-    priceValue: '199',
+    priceValue: '95',
     planId: 'master-plan',
   }
 ];
@@ -85,9 +85,10 @@ const PricingHero = () => {
 
   return (
     <section
-      className="min-h-screen overflow-hidden items-center justify-center px-4 sm:px-6 pt-8 sm:pt-10 flex flex-col"
+      className="min-h-screen overflow-hidden items-center justify-center px-4 sm:px-6 sm:pt-10 flex flex-col"
       style={{
-        background: `linear-gradient(90deg, #05051F 16.76%, #9F5EB0 140.63%), linear-gradient(122.01deg, #0A0B10 0%, #1A1339 50%, #402659 100%)`
+        background: `linear-gradient(90deg, #05051F 16.76%, #9F5EB0 140.63%), linear-gradient(122.01deg, #0A0B10 0%, #1A1339 50%, #402659 100%)`,
+        
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -136,7 +137,7 @@ const PricingHero = () => {
             </div>
           </div>
 
-            <div className="hidden md:grid md:grid-cols-3 md:gap-5 lg:gap-6 relative items-start">
+            <div className="flex gap-[34px] justify-center">
               {plans.map((plan, index) => (
                 <div
                   key={index}

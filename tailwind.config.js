@@ -24,6 +24,9 @@ theme: {
           "50%": { transform: "translate(-60px, -20px) scale(1.2)" },
           "100%": { transform: "translate(0,0) scale(1)" },
         },
+           blur: {
+        '13': '13.33px',
+      }
       },
       animation: {
         blob1: "blob1 18s ease-in-out infinite",

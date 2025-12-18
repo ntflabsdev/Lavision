@@ -12,57 +12,67 @@ import RephraseTooltip from './gemini/RephraseTooltip';
 
 const questionGroups = [
   {
+    title: 'Pre-Step',
+    questions: [
+      {
+        label: 'How would you like us to address you?',
+        key: 'how_to_address_you',
+        placeholder: 'Write your answer here...'
+      },
+    ],
+  },
+  {
     title: 'Dream Life Essentials',
     questions: [
-      { 
-        label: 'When you wake up in your dream life, what’s the first thing you see?', 
-        key: 'first_thing_you_see', 
-        placeholder: 'Write your answer here...' 
+      {
+        label: 'Imagine a completely ordinary morning in the life you want. You open your eyes. Where are you, and what is the first thing you see?',
+        key: 'q1_ordinary_morning_first_see',
+        placeholder: 'Write your answer here...'
       },
-      { 
-        label: 'As you walk through your dream home, what feeling fills your body?', 
-        key: 'home_feeling_body', 
-        placeholder: 'Write your answer here...' 
+      {
+        label: 'As you get out of bed and the day begins, how does the space around you feel? The light, the silence, the atmosphere.',
+        key: 'q2_space_feel_morning',
+        placeholder: 'Write your answer here...'
       },
-      { 
-        label: 'Where in the world do you feel “this is where I belong”?', 
-        key: 'belong_location', 
-        placeholder: 'Write your answer here...' 
+      {
+        label: 'You step out into your day. Where are you going, and how are you moving there?',
+        key: 'q3_step_out_where_going',
+        placeholder: 'Write your answer here...'
       },
-      { 
-        label: 'If one moment of your future could be filmed forever — which moment is it?', 
-        key: 'filmed_moment', 
-        placeholder: 'Write your answer here...' 
+      {
+        label: 'There is a moment during the day when you feel most like yourself. What are you doing in that moment?',
+        key: 'q4_most_like_yourself_moment',
+        placeholder: 'Write your answer here...'
       },
-      { 
-        label: 'Describe your perfect day from morning to night.', 
-        key: 'perfect_day', 
-        placeholder: 'Write your answer here...' 
+      {
+        label: 'How do you move through interactions with people in this life? How do you speak, respond, and carry yourself?',
+        key: 'q5_interactions_with_people',
+        placeholder: 'Write your answer here...'
       },
-      { 
-        label: 'What energy do you want people to feel when you enter a room?', 
-        key: 'energy_enter_room', 
-        placeholder: 'Write your answer here...' 
+      {
+        label: 'Think about your main space of work or creation. Where is it, and who are you when you are there?',
+        key: 'q6_main_space_of_work',
+        placeholder: 'Write your answer here...'
       },
-      { 
-        label: 'What detail in your dream home makes it feel truly yours?', 
-        key: 'dream_home_detail', 
-        placeholder: 'Write your answer here...' 
+      {
+        label: 'When you are completely alone, with no one around and nothing demanding your attention, how do you feel with yourself?',
+        key: 'q7_when_completely_alone',
+        placeholder: 'Write your answer here...'
       },
-      { 
-        label: 'How does your ideal workspace look and feel?', 
-        key: 'ideal_workspace', 
-        placeholder: 'Write your answer here...' 
+      {
+        label: 'Imagine a regular evening in this life. Where are you, and how does the day feel when you look back at it?',
+        key: 'q8_regular_evening',
+        placeholder: 'Write your answer here...'
       },
-      { 
-        label: 'What daily habits keep you at your strongest?', 
-        key: 'strongest_habits', 
-        placeholder: 'Write your answer here...' 
+      {
+        label: 'If someone were observing you from the outside in this life, what kind of presence would they notice?',
+        key: 'q9_observer_notice_presence',
+        placeholder: 'Write your answer here...'
       },
-      { 
-        label: 'If one sentence guided your entire life — what is it?', 
-        key: 'life_sentence', 
-        placeholder: 'Write your answer here...' 
+      {
+        label: 'After imagining all of this, what is the strongest feeling you notice in your body right now?',
+        key: 'q10_strongest_feeling_now',
+        placeholder: 'Write your answer here...'
       },
     ],
   }
@@ -158,7 +168,7 @@ const StepperCard = () => {
           return; // Don't navigate if save failed
         }
       }
-      navigate('/pricing');
+      navigate('/welcome-home');
     }
   };
 
@@ -209,10 +219,10 @@ const StepperCard = () => {
       {/* Progress Section */}
       <div className="mb-12">
         <div className="flex justify-between items-center mb-3">
-          <p className="text-white text-base font-normal">Step {completedQuestions + 1} of {totalQuestions}</p>
-          <div className="text-right">
-            <p className="text-white text-2xl font-semibold">{progressPercentage}%</p>
-            <p className="text-gray-400 text-xs">complete</p>
+          <p className="text-white text-[22px] font-normal">Step {completedQuestions + 1} of {totalQuestions}</p>
+          <div className="flex items-center gap-2">
+            <p className="text-white text-[22px] font-normal">{progressPercentage}%</p>
+            <p className="text-white text-[22px] font-normal">complete</p>
           </div>
         </div>
         <div className="w-full bg-white/10 rounded-full h-4 overflow-hidden">
@@ -225,7 +235,8 @@ const StepperCard = () => {
 
       {/* Question */}
       <div className="mb-10">
-        <p className="text-l md:text-3xl font-semibold text-white leading-relaxed mb-10 px-4">
+      <p className="text-[24px] text-left  text-white leading-relaxed mb-10 px-4">
+
           {currentQuestion.label}
         </p>
         

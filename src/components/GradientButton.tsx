@@ -30,7 +30,7 @@ const GradientButton: React.FC<GradientButtonProps> = ({
       disabled={disabled}
       className={`
         bg-gradient-to-r from-cyan-400 via-sky-500 to-fuchsia-500 
-        text-white rounded-full font-semibold 
+        text-white rounded-[12px] font-semibold 
         shadow-lg hover:shadow-cyan-500/50 
         hover:from-cyan-300 hover:via-sky-400 hover:to-fuchsia-400 
         transform hover:scale-105 

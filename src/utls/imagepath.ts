@@ -5,7 +5,7 @@ import Curve1 from "../assets/curve1.png";
 import Curve2 from "../assets/curve2.png";
 import Curve3 from "../assets/curve3.png";
 import Misson from "../assets/mission.png";
-import Logo from "../assets/logo.png";
+import Logo from "../assets/newLogo.svg";
 import Map from "../assets/map.png";
 import DollarSign from "../assets/dollar.png";
 import Brain from "../assets/brain.png";

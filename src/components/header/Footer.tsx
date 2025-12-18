@@ -10,7 +10,7 @@ const Footer = () => {
     <footer
       className="pt-16 px-6 pb-5"
       style={{
-        background: `linear-gradient(360deg, #05051F 16.76%, #9F5EB0 140.63%), linear-gradient(122.01deg, #0A0B10 0%, #1A1339 50%, #402659 100%)`
+        background: `linear-gradient(to bottom right, #05051F 80.76%, #9F5EB0 140.63%)`,
       }}
     >
       <div className="max-w-7xl mx-auto">

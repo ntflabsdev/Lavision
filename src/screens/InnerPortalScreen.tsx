@@ -8,7 +8,10 @@ import innerRightSideView from "../assets/innerHouseRightView.gif"
 import innerLeftSideView from "../assets/innerHouseLeftView.gif"
 import innerFrontSideView from "../assets/innerHouseFrontView.gif"
 import innerBackSideView from "../assets/innerHouseBackView.gif"
+<<<<<<< HEAD
 import LoaderOverlay from "../components/LoaderOverlay";
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
 
 type InnerAngleKey = 'front' | 'back' | 'left' | 'right';
 
@@ -31,13 +34,19 @@ const InnerPortalScreen = () => {
   const [editText, setEditText] = useState('');
   const [currentInnerAngleIndex, setCurrentInnerAngleIndex] = useState(0);
   const [isInnerViewActive, setIsInnerViewActive] = useState(false); // false = default image, true = show inner house views
+<<<<<<< HEAD
   const [isInnerGifLoading, setIsInnerGifLoading] = useState(false);
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
 
   const setInnerAngleByKey = (key: InnerAngleKey) => {
     const idx = innerAngles.findIndex((angle) => angle.key === key);
     if (idx !== -1) {
       setIsInnerViewActive(true);
+<<<<<<< HEAD
       setIsInnerGifLoading(true);
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
       setCurrentInnerAngleIndex(idx);
     }
   };
@@ -49,12 +58,18 @@ const InnerPortalScreen = () => {
         setIsInnerViewActive((prevActive) => {
           if (!prevActive) {
             // First space press: activate inner view but keep current index
+<<<<<<< HEAD
             setIsInnerGifLoading(true);
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
             return true;
           }
 
           // Subsequent presses: move to next angle
+<<<<<<< HEAD
           setIsInnerGifLoading(true);
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
           setCurrentInnerAngleIndex((prev) => (prev + 1) % innerAngles.length);
           return true;
         });
@@ -105,7 +120,10 @@ const InnerPortalScreen = () => {
             src={innerAngles[currentInnerAngleIndex].src}
             alt={innerAngles[currentInnerAngleIndex].label}
             className="w-full h-full object-cover"
+<<<<<<< HEAD
             onLoad={() => setIsInnerGifLoading(false)}
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
         </div>

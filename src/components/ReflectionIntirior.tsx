@@ -2,13 +2,19 @@ import { useState } from 'react';
 import { PenSquare, X } from 'lucide-react';
 import mirrorGif from '../assets/mirror.gif';
 import frameScreenVideo from '../assets/frameScreen.mp4';
+<<<<<<< HEAD
 import LoaderOverlay from './LoaderOverlay';
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
 
 
 function ReflectionIntirior({ type }: { type: string }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [editText, setEditText] = useState('');
+<<<<<<< HEAD
   const [isFrameVideoLoading, setIsFrameVideoLoading] = useState(true);
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
 
   const handleEditSubmit = () => {
     // TODO: hook up to real save flow
@@ -19,9 +25,12 @@ function ReflectionIntirior({ type }: { type: string }) {
 
   return (
     <div className="min-h-screen relative overflow-hidden [background:linear-gradient(180deg,#05051F_16.76%,#9F5EB0_140.63%),linear-gradient(122.01deg,#0A0B10_0%,#1A1339_50%,#402659_100%)]">
+<<<<<<< HEAD
       {type !== 'mirror' && isFrameVideoLoading && (
         <LoaderOverlay message="Loading reflection..." />
       )}
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
       <p className="font-bold text-white mb-8 text-center pt-4 text-[24px]">
         MEN VISUAL
         <span className="bg-gradient-to-r from-[#8B5CF6] to-[#60A5FA] bg-clip-text text-transparent ml-2">
@@ -80,7 +89,10 @@ function ReflectionIntirior({ type }: { type: string }) {
             muted
             src={frameScreenVideo}
             className="object-cover background: var(--white-colour-5-opacity, #FFFFFF0D) rounded-[16px] w-[800px] h-[500px]"
+<<<<<<< HEAD
             onLoadedData={() => setIsFrameVideoLoading(false)}
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
           />
         )}
       </div>

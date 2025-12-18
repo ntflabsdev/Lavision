@@ -8,6 +8,7 @@ import outSideCar1 from "../assets/outsideCar1.gif"
 import innerCar from "../assets/innerCar.mp4"
 import officeSide1 from "../assets/officeSide1.gif"
 import LeftoutSideCar1 from "../assets/OutsideleftCarView1.gif"
+<<<<<<< HEAD
 import BackoutSideCar2 from "../assets/OutsideBackCarView1.gif"
 import RightoutSideCar3 from "../assets/OutsideRightSideCarView1.gif"
 import FrontoutSideCar4 from "../assets/outSideFrontCarView1.gif"
@@ -15,6 +16,14 @@ import officeViewLeft from "../assets/officeInsideLeftView.gif"
 import officeViewFront from "../assets/officeInsideFrontView.gif"
 import { CarFront, ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from 'lucide-react';
 import LoaderOverlay from './LoaderOverlay';
+=======
+import BackoutSideCar2 from "../assets/outSideBackCarView1.gif"
+import RightoutSideCar3 from "../assets/OutsideRightSideCarView1.gif"
+import FrontoutSideCar4 from "../assets/OutsideFrontCarView1.gif"
+import officeViewLeft from "../assets/officeInsideLeftView.gif"
+import officeViewFront from "../assets/officeInsideFrontView.gif"
+import { CarFront, ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from 'lucide-react';
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
 type AngleView = {
   key: 'normal'| 'front' | 'left' | 'back' | 'right';
   label: string;
@@ -50,23 +59,32 @@ function CarCenter({screen}:{screen:number}) {
     defaultAngleIndex >= 0 ? defaultAngleIndex : 0
   );
   const [currentOfficeAngleIndex, setCurrentOfficeAngleIndex] = useState(0);
+<<<<<<< HEAD
   const [isInnerVideoLoading, setIsInnerVideoLoading] = useState(true);
   const [isCarAngleLoading, setIsCarAngleLoading] = useState(true);
   const [isOfficeAngleLoading, setIsOfficeAngleLoading] = useState(true);
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
 
   const toggleState = () => {
     setIsOutside(!isOutside);
   };
 
   const handleNextAngle = () => {
+<<<<<<< HEAD
     setIsCarAngleLoading(true);
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
     setCurrentAngleIndex((prev) => (prev + 1) % carAngles.length);
   };
 
   const setOfficeAngleByKey = (key: OfficeAngleKey) => {
     const index = officeAngles.findIndex((angle) => angle.key === key);
     if (index !== -1) {
+<<<<<<< HEAD
       setIsOfficeAngleLoading(true);
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
       setCurrentOfficeAngleIndex(index);
     }
   };
@@ -91,7 +109,10 @@ function CarCenter({screen}:{screen:number}) {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.code === 'Space') {
         event.preventDefault();
+<<<<<<< HEAD
         setIsOfficeAngleLoading(true);
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
         setCurrentOfficeAngleIndex((prev) => (prev + 1) % officeAngles.length);
       }
     };
@@ -125,6 +146,7 @@ const MoveToCar = () => {
 }
   return (
     <div className="h-[100vh] relative overflow-hidden [background:linear-gradient(180deg,#05051F_16.76%,#9F5EB0_140.63%),linear-gradient(122.01deg,#0A0B10_0%,#1A1339_50%,#402659_100%)]">
+<<<<<<< HEAD
       {screen === 3 && isInnerVideoLoading && (
         <LoaderOverlay message="Loading drive view..." />
       )}
@@ -134,6 +156,8 @@ const MoveToCar = () => {
       {screen === 5 && isOfficeAngleLoading && (
         <LoaderOverlay message="Loading office view..." />
       )}
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
    
    
 {
@@ -204,7 +228,10 @@ const MoveToCar = () => {
      <img 
         src={carAngles[currentAngleIndex].src}
         className="object-cover w-full h-full"
+<<<<<<< HEAD
         onLoad={() => setIsCarAngleLoading(false)}
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
       />
  
     
@@ -227,7 +254,11 @@ const MoveToCar = () => {
 </> : 
 screen == 3 ?
  <>
+<<<<<<< HEAD
         <div className="absolute bottom-0 left-[20px] flex flex-col gap-[20px] pb-[40px] ">
+=======
+        <div className="absolute bottom-0 left-[20px] flex flex-col gap-[20px] pb-[40px]">
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
      <img src={homeIcon} alt="home logo" className="cursor-pointer" onClick={GoToHome}/>
        <img src={officeIcon} alt="office logo" className="cursor-pointer" onClick={GoToOffice}/>
     </div>
@@ -238,7 +269,10 @@ screen == 3 ?
         loop
         src={innerCar}
         className="object-cover w-full h-full"
+<<<<<<< HEAD
         onLoadedData={() => setIsInnerVideoLoading(false)}
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
       />
 
       <div style={{position:"relative",left:"0px", top:"-110px",color:"white", display:"flex", justifyContent:"center",width:"210px", margin:"0 auto", height:"60px",  borderRadius:"30px"}}>
@@ -274,7 +308,10 @@ screen == 3 ?
             src={officeAngles[currentOfficeAngleIndex].src}
             className="object-cover w-full h-full"
             alt={officeAngles[currentOfficeAngleIndex].label}
+<<<<<<< HEAD
             onLoad={() => setIsOfficeAngleLoading(false)}
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/60" />
         </div>

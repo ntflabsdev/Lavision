@@ -235,8 +235,12 @@ const StepperCard = () => {
 
       {/* Question */}
       <div className="mb-10">
+<<<<<<< HEAD
       <p className="text-[24px] text-left  text-white leading-relaxed mb-10 px-4">
 
+=======
+        <p className="text-[26px] text-left font-semibold text-white leading-relaxed mb-10 px-4">
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
           {currentQuestion.label}
         </p>
         

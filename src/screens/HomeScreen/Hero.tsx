@@ -10,7 +10,10 @@ import welcomeVideo4 from '../../assets/videos/welcome_video_4.mp4';
 import welcomeVideo5 from '../../assets/videos/welcome_video_5.mp4';
 import welcomeVideo6 from '../../assets/videos/welcome_video_6.mp4';
 import Teams from '../../components/Aboutus/Team';
+<<<<<<< HEAD
 import LoaderOverlay from '../../components/LoaderOverlay';
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -53,7 +56,10 @@ const Hero = () => {
 
   return (
     <>
+<<<<<<< HEAD
     {isHeroLoading && <LoaderOverlay message="Loading your world..." />}
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
     <main className="relative min-h-screen overflow-hidden flex items-center justify-center">
       
       {/* Video Background with Sequence */}

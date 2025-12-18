@@ -1,7 +1,10 @@
 import { useState, useEffect, useRef, KeyboardEvent } from "react";
 import { Send } from "lucide-react";
 import eveChat from "../assets/EveChat.mp4"
+<<<<<<< HEAD
 import LoaderOverlay from "../components/LoaderOverlay";
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
 interface Message {
   id: number;
   text: string;
@@ -26,7 +29,10 @@ export default function EVEChat({ variant = "full", onClose }: { variant?: ChatV
   const [input, setInput] = useState("");
   const hasSentInitial = useRef(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+<<<<<<< HEAD
   const [isVideoLoading, setIsVideoLoading] = useState(true);
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -86,9 +92,12 @@ export default function EVEChat({ variant = "full", onClose }: { variant?: ChatV
 
   return (
     <div className={containerClass}>
+<<<<<<< HEAD
       {isVideoLoading && (
         <LoaderOverlay message="Warming up Eve..." />
       )}
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
       {/* Video/Gradient Backdrop (full) */}
       {variant === "full" && (
         <>
@@ -99,7 +108,10 @@ export default function EVEChat({ variant = "full", onClose }: { variant?: ChatV
             playsInline
             className="absolute inset-0 w-full h-full object-cover"
             src={eveChat}
+<<<<<<< HEAD
             onLoadedData={() => setIsVideoLoading(false)}
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
           />
           <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-blue-900/20 to-pink-900/30 mix-blend-overlay" />
           <div className="absolute inset-0 bg-black/60" />
@@ -116,7 +128,10 @@ export default function EVEChat({ variant = "full", onClose }: { variant?: ChatV
             playsInline
             className="absolute inset-0 w-full h-full object-cover rounded-3xl"
             src={eveChat}
+<<<<<<< HEAD
             onLoadedData={() => setIsVideoLoading(false)}
+=======
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
           />
           <div className="absolute inset-0 rounded-3xl bg-black/60 border border-white/10 shadow-2xl backdrop-blur-sm" />
         </>

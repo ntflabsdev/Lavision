@@ -1,4 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+<<<<<<< HEAD
+=======
+import { useEffect, useState } from 'react';
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
 import { Provider } from 'react-redux';
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { store } from './store';
@@ -42,6 +46,7 @@ const paypalOptions = {
   vault: true,
 };
 
+<<<<<<< HEAD
 // Fab ko sirf un routes par dikhana hai jo /welcome-home ke baad aate hain
 const FabRouteWrapper = () => {
   const location = useLocation();
@@ -68,6 +73,40 @@ const FabRouteWrapper = () => {
   const shouldShowFab =
     fabVisiblePaths.some((path) => location.pathname.startsWith(path)) ||
     location.pathname.startsWith('/car');
+=======
+// Fab ko sirf pricing ke baad dikhana hai, pricing se pehle nahi
+const FabRouteWrapper = () => {
+  const location = useLocation();
+  const [hasVisitedPricing, setHasVisitedPricing] = useState(false);
+
+  // Check localStorage on mount and when location changes
+  useEffect(() => {
+    const visited = localStorage.getItem('hasVisitedPricing') === 'true';
+    setHasVisitedPricing(visited);
+
+    // If user visits pricing route, mark as visited
+    if (location.pathname === '/pricing' || location.pathname.startsWith('/pricing')) {
+      localStorage.setItem('hasVisitedPricing', 'true');
+      setHasVisitedPricing(true);
+    }
+  }, [location.pathname]);
+
+  // Check if current route is pricing or welcome-home
+  const isPricingRoute = location.pathname === '/pricing' || location.pathname.startsWith('/pricing/');
+  const isWelcomeHomeRoute = location.pathname === '/welcome-home' || location.pathname.startsWith('/welcome-home/');
+  
+  // Routes where FAB should NOT show even after pricing
+  const isExcludedRoute = 
+    location.pathname === '/' ||
+    location.pathname === '/getstart' ||
+    location.pathname.startsWith('/login') ||
+    location.pathname.startsWith('/register') ||
+    location.pathname.startsWith('/questionnaire') ||
+    location.pathname.startsWith('/forgot-password');
+
+  // Show FAB if: (welcome-home route) OR (pricing route) OR (pricing has been visited AND route is not excluded)
+  const shouldShowFab = isWelcomeHomeRoute || isPricingRoute || (hasVisitedPricing && !isExcludedRoute);
+>>>>>>> c6089880bd4a054956f72442ea452f02c08c50c0
 
   return shouldShowFab ? <Fab /> : null;
 };
